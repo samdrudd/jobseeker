@@ -18,7 +18,9 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	};
 
 	$scope.addJob = function() {
-		console.log($scope.job.date);
+		console.log($scope.job);
+		var jobobj = $scope.getJobObject($scope.job);
+
 		$http({
 			url: "http://127.0.0.1:8000/jobs",
 			method: "POST",
@@ -26,7 +28,7 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 			headers: { "Content-Type": "application/x-www-form-urlencoded"}})
 		.then(function successCallback(response) {
 			console.log(response.data);
-			$scope.joblist.push($scope.job);
+			$scope.joblist.push(jobobj);
 		}, function errorCallback(response) {
 			console.log(response.statusText);
 		});
@@ -43,6 +45,10 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	$scope.getDateString = function(date) {
 		var dt = new Date(date);
 		return (dt.getMonth()+1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+	};
+
+	$scope.getJobObject = function(job) {
+		return { date : job.date, title : job.title, company : job.company, location : job.location, via : job.via };
 	};
 
 });
