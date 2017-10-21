@@ -11,7 +11,7 @@
 	
 	<body>
 	
-		<div ng-app="jobseeker" ng-controller="jobseekerCtrl">
+		<div ng-app="jobseeker" ng-controller="jobseekerCtrl" ng-init="init()">
 			<form>
 				<label for="dateInput">Date Applied:</label><br>
 				<input type="text" ng-model="job.date" id="dateInput"></input><br><br>
@@ -31,6 +31,23 @@
 				<input type="button" value="Reset" ng-click="resetForm()"></input>
 				<input type="submit" value="Add Job" ng-click="addJob()"></input>
 			</form>
+
+			<table> 
+				<tr>
+					<th>Date Applied</th>
+					<th>Job Title</th>
+					<th>Company</th>
+					<th>Location</th>
+					<th>Applied Via</th>
+				</tr>
+				<tr ng-repeat="job in joblist">
+					<td>{{ getDateString(job.date) }}</td>
+					<td>{{ job.title }}</td>
+					<td>{{ job.company }}</td>
+					<td>{{ job.location }}</td>
+					<td>{{ job.via }}</td>
+				</tr>
+			</table>
 		</div>
 
 		<script>

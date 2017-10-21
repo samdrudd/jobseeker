@@ -1,5 +1,26 @@
-.fa:hover
+table
 {
-	color: #AAA;
-	cursor: hand;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+tr:nth-child(even)
+{
+	background-color: #EEE;
+}
+
+th
+{
+	border-bottom: 2px solid #AAA;
+	padding-bottom: 5px;
+}
+
+td
+{
+	padding: 5px;
+}
+
+th, td 
+{
+	text-align: center;
 }
