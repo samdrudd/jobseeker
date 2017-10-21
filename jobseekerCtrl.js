@@ -1,7 +1,7 @@
 app.controller("jobseekerCtrl", function($scope, $http) {
 	var today = new Date();
 	$scope.job = {};
-	$scope.job.dateApplied = (today.getMonth()+1) + "/" + today.getDate() + "/" + today.getFullYear();
+	$scope.job.date = (today.getMonth()+1) + "/" + today.getDate() + "/" + today.getFullYear();
 
 	$scope.addJob = function() {
 		$http({

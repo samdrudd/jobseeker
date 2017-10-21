@@ -13,31 +13,31 @@
 	
 		<div ng-app="jobseeker" ng-controller="jobseekerCtrl">
 			<form>
-				<label>Date Applied:</label><br>
-				<input type="text" ng-model="job.dateApplied" id="dateInput"></input><br><br>
+				<label for="dateInput">Date Applied:</label><br>
+				<input type="text" ng-model="job.date" id="dateInput"></input><br><br>
 
-				<label>Job Title:</label><br>
-				<input type="text" ng-model="job.jobTitle"></input><br><br>
+				<label for="titleInput">Job Title:</label><br>
+				<input type="text" ng-model="job.title" id="titleInput"></input><br><br>
 
-				<label>Company:</label><br>
-				<input type="text" ng-model="job.company"></input><br><br>
+				<label for="companyInput">Company:</label><br>
+				<input type="text" ng-model="job.company" id="companyInput"></input><br><br>
 				
-				<label>Location:</label><br>
-				<input type="text" ng-model="job.location"></input><br><br>
+				<label for="locationInput">Location:</label><br>
+				<input type="text" ng-model="job.location" id="locationInput"></input><br><br>
 
-				<label>Applied via:</label><br>
-				<input type="text" ng-model="job.website"></input><br><br><br>
+				<label for="viaInput">Applied via:</label><br>
+				<input type="text" ng-model="job.via" id="viaInput"></input><br><br><br>
 				
 				<input type="button" value="Reset" ng-click="resetForm()"></input>
-				<input type="submit" value="Add Recipe" ng-click="addJob()"></input>
+				<input type="submit" value="Add Job" ng-click="addJob()"></input>
 			</form>
 		</div>
 
-	<script>
-		$(document).ready(function() {
-			$("#dateInput").datepicker();
-		});
-	</script>
+		<script>
+			$(document).ready(function() {
+				$("#dateInput").datepicker();
+			});
+		</script>
 	
 		<script src="jobseekerApp.js"></script>
 		<script src="jobseekerCtrl.js"></script>
