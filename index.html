@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Job Seeker</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://use.fontawesome.com/f3009b4d7d.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	</head>
+	
+	<body>
+	
+		<div ng-app="jobseeker" ng-controller="jobseekerCtrl">
+			<form>
+				<label>Date Applied:</label><br>
+				<input type="text" ng-model="job.dateApplied" id="dateInput"></input><br><br>
+
+				<label>Job Title:</label><br>
+				<input type="text" ng-model="job.jobTitle"></input><br><br>
+
+				<label>Company:</label><br>
+				<input type="text" ng-model="job.company"></input><br><br>
+				
+				<label>Location:</label><br>
+				<input type="text" ng-model="job.location"></input><br><br>
+
+				<label>Applied via:</label><br>
+				<input type="text" ng-model="job.website"></input><br><br><br>
+				
+				<input type="button" value="Reset" ng-click="resetForm()"></input>
+				<input type="submit" value="Add Recipe" ng-click="addJob()"></input>
+			</form>
+		</div>
+
+	<script>
+		$(document).ready(function() {
+			$("#dateInput").datepicker();
+		});
+	</script>
+	
+		<script src="jobseekerApp.js"></script>
+		<script src="jobseekerCtrl.js"></script>
+	</body>
+</html>	
