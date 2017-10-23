@@ -17,7 +17,7 @@
 			<a class="navbar-brand" href="#">JobSeeker</a>
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<button type="button" class="btn navbar-btn btn-primary" data-toggle="modal" data-target="#addJobModal">Add Job</button>
+					<button type="button" role="button" class="btn navbar-btn btn-primary" data-toggle="modal" data-target="#addJobModal">Add Job</button>
 				</li>
 			</ul>
 		</nav>
@@ -61,21 +61,28 @@
 				</div>
 			</div>
 
-			<table class="table"> 
-				<tr>
-					<th>Date Applied</th>
-					<th>Job Title</th>
-					<th>Company</th>
-					<th>Location</th>
-					<th>Applied Via</th>
-				</tr>
-				<tr ng-repeat="job in joblist">
-					<td>{{ getDateString(job.date) }}</td>
-					<td>{{ job.title }}</td>
-					<td>{{ job.company }}</td>
-					<td>{{ job.location }}</td>
-					<td>{{ job.via }}</td>
-				</tr>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date Applied</th>
+						<th>Job Title</th>
+						<th>Company</th>
+						<th>Location</th>
+						<th>Applied Via</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="job in joblist">
+						<td>{{ getDateString(job.date) }}</td>
+						<td>{{ job.title }}</td>
+						<td>{{ job.company }}</td>
+						<td>{{ job.location }}</td>
+						<td>{{ job.via }}</td>
+						<td><button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 

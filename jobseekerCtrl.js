@@ -9,7 +9,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 			url: "http://127.0.0.1:8000/jobs",
 			method: "GET"})
 		.then(function successCallback(response) {
-			console.log(response.data);
 			$scope.joblist = response.data;
 		}, function errorCallback(response) {
 			console.log(response.statusText);
@@ -25,13 +24,25 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 			data: $.param($scope.job),
 			headers: { "Content-Type": "application/x-www-form-urlencoded"}})
 		.then(function successCallback(response) {
-			console.log(response.data);
 			$scope.joblist.push(jobobj);
 		}, function errorCallback(response) {
 			console.log(response.statusText);
 		});
 
 		$scope.resetForm();
+
+	};
+
+	$scope.deleteJob = function(id, index) {
+		$http({
+			url: "http://127.0.0.1:8000/jobs/" + id,
+			method: "DELETE",
+			headers: { "Content-Type" : "application/x-www-form-urlencoded" } })
+		.then(function(response) {
+			$scope.joblist.splice(index, 1);
+		}, function(response) {
+			console.log(response.statusText);
+		});
 
 	};
 
