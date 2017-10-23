@@ -2,40 +2,66 @@
 	<head>
 		<title>Job Seeker</title>
 		
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-		
+
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<script src="https://use.fontawesome.com/f3009b4d7d.js"></script>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	</head>
 	
 	<body>
-	
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">JobSeeker</a>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<button type="button" class="btn navbar-btn btn-primary" data-toggle="modal" data-target="#addJobModal">Add Job</button>
+				</li>
+			</ul>
+		</nav>
 		<div ng-app="jobseeker" ng-controller="jobseekerCtrl" ng-init="init()">
-			<form>
-				<label for="dateInput">Date Applied:</label><br>
-				<input type="text" ng-model="job.date" id="dateInput"></input><br><br>
 
-				<label for="titleInput">Job Title:</label><br>
-				<input type="text" ng-model="job.title" id="titleInput"></input><br><br>
+			<div id="addJobModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form class="form-vertical">
+							
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="dateInput">Date Applied:</label>
+									<input class="form-control" type="text" ng-model="job.date" id="dateInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="titleInput">Job Title:</label>
+									<input class="form-control" type="text" ng-model="job.title" id="titleInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="companyInput">Company:</label>
+									<input class="form-control" type="text" ng-model="job.company" id="companyInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="locationInput">Location:</label>
+									<input class="form-control" type="text" ng-model="job.location" id="locationInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="viaInput">Applied via:</label>
+									<input class="form-control" type="text" ng-model="job.via" id="viaInput"></input>
+								</div>
+							</div>
 
-				<label for="companyInput">Company:</label><br>
-				<input type="text" ng-model="job.company" id="companyInput"></input><br><br>
-				
-				<label for="locationInput">Location:</label><br>
-				<input type="text" ng-model="job.location" id="locationInput"></input><br><br>
+							<div class="modal-footer">
+								<input type="button" value="Reset" ng-click="resetForm()"></input>
+								<input type="submit" value="Add Job" ng-click="addJob()" data-dismiss="modal"></input>
+							</div>
 
-				<label for="viaInput">Applied via:</label><br>
-				<input type="text" ng-model="job.via" id="viaInput"></input><br><br><br>
-				
-				<input type="button" value="Reset" ng-click="resetForm()"></input>
-				<input type="submit" value="Add Job" ng-click="addJob()"></input>
-			</form>
+						</form>
+					</div>
+				</div>
+			</div>
 
-			<table> 
+			<table class="table"> 
 				<tr>
 					<th>Date Applied</th>
 					<th>Job Title</th>
@@ -53,12 +79,6 @@
 			</table>
 		</div>
 
-		<script>
-			$(document).ready(function() {
-				$("#dateInput").datepicker();
-			});
-		</script>
-	
 		<script src="jobseekerApp.js"></script>
 		<script src="jobseekerCtrl.js"></script>
 	</body>
