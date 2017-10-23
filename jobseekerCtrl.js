@@ -7,8 +7,7 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 
 		$http({
 			url: "http://127.0.0.1:8000/jobs",
-			method: "GET",
-			headers: {"Content-Type": "application/x-www-form-urlencoded"} })
+			method: "GET"})
 		.then(function successCallback(response) {
 			console.log(response.data);
 			$scope.joblist = response.data;
@@ -18,7 +17,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	};
 
 	$scope.addJob = function() {
-		console.log($scope.job);
 		var jobobj = $scope.getJobObject($scope.job);
 
 		$http({
