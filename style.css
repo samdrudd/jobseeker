@@ -2,3 +2,8 @@ button
 {
 	cursor: pointer;
 }
+
+.sortable
+{
+	cursor: pointer;
+}

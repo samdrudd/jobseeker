@@ -1,5 +1,6 @@
 app.controller("jobseekerCtrl", function($scope, $http) {
-
+	$scope.sorted = {};
+	
 	$scope.init = function() {
 		$scope.job = {};
 		$scope.job.date = $scope.getDateString(new Date());
@@ -51,5 +52,43 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		var dt = new Date(date);
 		return (dt.getMonth()+1) + "/" + dt.getDate() + "/" + dt.getFullYear();
 	};
-
+	
+	$scope.sort = function(colname) {
+		console.log($scope.sorted);
+		if ($scope.sorted.column !== colname) {
+			$scope.sorted.column = colname;
+			$scope.sorted.order = "asc";
+			$scope.joblist.sort(function(a, b) {
+					var x = a[colname].toLowerCase();
+					var y = b[colname].toLowerCase();
+					if (x < y) { return -1; }
+					if (x > y) { return 1; }
+					return 0;
+				});
+		} else {
+			$scope.joblist.reverse();
+			$scope.sorted.order === "asc" ? $scope.sorted.order = "desc" : $scope.sorted.order = "asc";
+		}	
+	};
+	
+	$scope.isSortedBy = function(colname) {
+		return $scope.sorted.column === colname;
+	};
+	
+	$scope.getSortedClass = function(colname) {
+		if ($scope.sorted.column === colname)
+			return "text-muted";
+		else
+			return "";
+	};
+	
+	$scope.getSortedIcon = function(colname) {
+		if ($scope.isSortedBy(colname)) {
+			if ($scope.sorted.order === "asc")
+				return "fa-sort-asc";
+			else
+				return "fa-sort-desc";
+		} else
+			return "fa-sort";
+	};
 });

@@ -66,10 +66,10 @@
 				<thead>
 					<tr>
 						<th>Date Applied</th>
-						<th>Job Title</th>
-						<th>Company</th>
-						<th>Location</th>
-						<th>Applied Via</th>
+						<th id="titleCol" ng-click="sort('title')" class="sortable" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
+						<th id="companyCol" ng-click="sort('company')" class="sortable" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
+						<th id="locationCol" ng-click="sort('location')" class="sortable" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
+						<th id="viaCol" ng-click="sort('via')" class="sortable" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>
 						<th>&nbsp;</th>
 					</tr>
 				</thead>
