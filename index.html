@@ -24,46 +24,44 @@
 		</nav>
 		<div ng-app="jobseeker" ng-controller="jobseekerCtrl" ng-init="init()">
 
-			<div id="addJobModal" class="modal fade" role="dialog" ng-model="addJobModal">
+			<div id="addJobModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form class="form-vertical" id="addJobForm" novalidate>
+						<form class="form-vertical">
 							
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="dateInput">Date Applied:</label>
-									<input class="form-control" type="text" ng-model="job.date" id="dateInput" required></input>
+									<input class="form-control" type="text" ng-model="job.date" id="dateInput"></input>
 								</div>
 								<div class="form-group">
 									<label for="titleInput">Job Title:</label>
-									<input class="form-control" type="text" ng-model="job.title" id="titleInput" required></input>
+									<input class="form-control" type="text" ng-model="job.title" id="titleInput"></input>
 								</div>
 								<div class="form-group">
 									<label for="companyInput">Company:</label>
-									<input class="form-control" type="text" ng-model="job.company" id="companyInput" required></input>
+									<input class="form-control" type="text" ng-model="job.company" id="companyInput"></input>
 								</div>
 								<div class="form-group">
 									<label for="locationInput">Location:</label>
-									<input class="form-control" type="text" ng-model="job.location" id="locationInput" required></input>
+									<input class="form-control" type="text" ng-model="job.location" id="locationInput"></input>
 								</div>
 								<div class="form-group">
 									<label for="viaInput">Applied via:</label>
-									<input class="form-control" type="text" ng-model="job.via" id="viaInput" required></input>
-									<div class="invalid-feedback">
-										Required
-									</div>
+									<input class="form-control" type="text" ng-model="job.via" id="viaInput"></input>
 								</div>
 							</div>
 
 							<div class="modal-footer">
 								<input type="button" value="Reset" ng-click="resetForm()"></input>
-								<input type="submit" value="Add Job" ng-click="addJob()"></input>
+								<input type="submit" value="Add Job" ng-click="addJob()" data-dismis="modal"></input>
 							</div>
 
 						</form>
 					</div>
 				</div>
 			</div>
+			
 			<table class="table">
 				<thead>
 					<tr>
