@@ -24,52 +24,54 @@
 		</nav>
 		<div ng-app="jobseeker" ng-controller="jobseekerCtrl" ng-init="init()">
 
-			<div id="addJobModal" class="modal fade" role="dialog">
+			<div id="addJobModal" class="modal fade" role="dialog" ng-model="addJobModal">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form class="form-vertical">
+						<form class="form-vertical" id="addJobForm" novalidate>
 							
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="dateInput">Date Applied:</label>
-									<input class="form-control" type="text" ng-model="job.date" id="dateInput"></input>
+									<input class="form-control" type="text" ng-model="job.date" id="dateInput" required></input>
 								</div>
 								<div class="form-group">
 									<label for="titleInput">Job Title:</label>
-									<input class="form-control" type="text" ng-model="job.title" id="titleInput"></input>
+									<input class="form-control" type="text" ng-model="job.title" id="titleInput" required></input>
 								</div>
 								<div class="form-group">
 									<label for="companyInput">Company:</label>
-									<input class="form-control" type="text" ng-model="job.company" id="companyInput"></input>
+									<input class="form-control" type="text" ng-model="job.company" id="companyInput" required></input>
 								</div>
 								<div class="form-group">
 									<label for="locationInput">Location:</label>
-									<input class="form-control" type="text" ng-model="job.location" id="locationInput"></input>
+									<input class="form-control" type="text" ng-model="job.location" id="locationInput" required></input>
 								</div>
 								<div class="form-group">
 									<label for="viaInput">Applied via:</label>
-									<input class="form-control" type="text" ng-model="job.via" id="viaInput"></input>
+									<input class="form-control" type="text" ng-model="job.via" id="viaInput" required></input>
+									<div class="invalid-feedback">
+										Required
+									</div>
 								</div>
 							</div>
 
 							<div class="modal-footer">
 								<input type="button" value="Reset" ng-click="resetForm()"></input>
-								<input type="submit" value="Add Job" ng-click="addJob()" data-dismiss="modal"></input>
+								<input type="submit" value="Add Job" ng-click="addJob()"></input>
 							</div>
 
 						</form>
 					</div>
 				</div>
 			</div>
-
 			<table class="table">
 				<thead>
 					<tr>
 						<th>Date Applied</th>
-						<th>Job Title</th>
-						<th>Company</th>
-						<th>Location</th>
-						<th>Applied Via</th>
+						<th id="titleCol" ng-click="sort('title')" class="sortable" ng-class="isSortedBy('title') ? 'sorted' : ''">Job Title <i class="fa" ng-class="isSortedBy('title') ? sorted.order === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc' : 'fa-sort'" /></th>
+						<th id="companyCol" ng-click="sort('company')" class="sortable" ng-class="isSortedBy('company') ? 'sorted' : ''">Company <i class="fa" ng-class="" /></th>
+						<th id="locationCol" ng-click="sort('location')" class="sortable" ng-class="isSortedBy('location') ? 'sorted' : ''">Location <i class="fa" ng-class="" /></th>
+						<th id="viaCol" ng-click="sort('via')" class="sortable" ng-class="isSortedBy('via') ? 'sorted' : ''">Applied Via <i class="fa" ng-class=""/></th>
 						<th>&nbsp;</th>
 					</tr>
 				</thead>

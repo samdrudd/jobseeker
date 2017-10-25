@@ -2,3 +2,13 @@ button
 {
 	cursor: pointer;
 }
+
+.sortable
+{
+	cursor: pointer;
+}
+
+.sorted
+{
+	color: blue;
+}
