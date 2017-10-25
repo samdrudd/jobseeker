@@ -68,10 +68,10 @@
 				<thead>
 					<tr>
 						<th>Date Applied</th>
-						<th id="titleCol" ng-click="sort('title')" class="sortable" ng-class="isSortedBy('title') ? 'sorted' : ''">Job Title <i class="fa" ng-class="isSortedBy('title') ? sorted.order === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc' : 'fa-sort'" /></th>
-						<th id="companyCol" ng-click="sort('company')" class="sortable" ng-class="isSortedBy('company') ? 'sorted' : ''">Company <i class="fa" ng-class="" /></th>
-						<th id="locationCol" ng-click="sort('location')" class="sortable" ng-class="isSortedBy('location') ? 'sorted' : ''">Location <i class="fa" ng-class="" /></th>
-						<th id="viaCol" ng-click="sort('via')" class="sortable" ng-class="isSortedBy('via') ? 'sorted' : ''">Applied Via <i class="fa" ng-class=""/></th>
+						<th id="titleCol" ng-click="sort('title')" class="sortable" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
+						<th id="companyCol" ng-click="sort('company')" class="sortable" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
+						<th id="locationCol" ng-click="sort('location')" class="sortable" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
+						<th id="viaCol" ng-click="sort('via')" class="sortable" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>
 						<th>&nbsp;</th>
 					</tr>
 				</thead>

@@ -65,7 +65,7 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		console.log($scope.sorted);
 		if ($scope.sorted.column !== colname) {
 			$scope.sorted.column = colname;
-			$scope.sorted.order = "des";
+			$scope.sorted.order = "asc";
 			$scope.joblist.sort(function(a, b) {
 					var x = a[colname].toLowerCase();
 					var y = b[colname].toLowerCase();
@@ -75,7 +75,7 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 				});
 		} else {
 			$scope.joblist.reverse();
-			$scope.sorted.order === "asc" ? $scope.sorted.order = "des" : $scope.sorted.order = "asc";
+			$scope.sorted.order === "asc" ? $scope.sorted.order = "desc" : $scope.sorted.order = "asc";
 		}	
 	};
 	
@@ -83,4 +83,20 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		return $scope.sorted.column === colname;
 	};
 	
+	$scope.getSortedClass = function(colname) {
+		if ($scope.sorted.column === colname)
+			return "text-muted";
+		else
+			return "";
+	};
+	
+	$scope.getSortedIcon = function(colname) {
+		if ($scope.isSortedBy(colname)) {
+			if ($scope.sorted.order === "asc")
+				return "fa-sort-asc";
+			else
+				return "fa-sort-desc";
+		} else
+			return "fa-sort";
+	};
 });
