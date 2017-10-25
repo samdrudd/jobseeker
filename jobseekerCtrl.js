@@ -17,13 +17,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	};
 
 	$scope.addJob = function() {
-		var form = document.getElementById("addJobForm");
-		if (!form.checkValidity())
-		{
-			form.classList.add("was-validated");
-			return;
-		}
-		console.log(form);
 		$http({
 			url: "http://127.0.0.1:8000/jobs",
 			method: "POST",
@@ -32,7 +25,7 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		.then(function successCallback(response) {
 			$scope.joblist.push(response.data);
 		}, function errorCallback(response) {
-			console.log(response);
+			console.log(response.statusText);
 		});
 
 		$scope.resetForm();
@@ -53,7 +46,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	$scope.resetForm = function() {
 		$scope.job = {};
 		$scope.job.date = $scope.getDateString(new Date());
-		document.getElementById("addJobForm").classList.remove("was-validated");
 	};
 
 	$scope.getDateString = function(date) {
