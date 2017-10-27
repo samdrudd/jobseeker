@@ -54,7 +54,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 	};
 	
 	$scope.sort = function(colname) {
-		console.log($scope.sorted);
 		if ($scope.sorted.column !== colname) {
 			$scope.sorted.column = colname;
 			$scope.sorted.order = "asc";
