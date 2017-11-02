@@ -1,5 +1,6 @@
 app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.sorted = {};
+	var editedJob = {};
 	
 	$scope.init = function() {
 		$scope.job = {};
@@ -63,6 +64,14 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.openEditModal = function(index) {
 		$scope.job = $scope.joblist[index];
 		$scope.job.date = $scope.getDateString($scope.job.date);
+		editedJob = {
+			_id : $scope.job._id,
+			date :  $scope.job.date,
+			title : $scope.job.title,
+			company : $scope.job.company,
+			location : $scope.job.location,
+			via : $scope.job.via 
+		};
 	};
 	
 	$scope.deleteJob = function(id, index) {
@@ -77,8 +86,25 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	};
 
 	$scope.resetForm = function() {
+		if ($scope.job._id) {
+			$scope.revertForm();
+		} else {
+			$scope.clearForm();
+		}
+	};
+	
+	$scope.clearForm = function() {
 		$scope.job = {};
 		$scope.job.date = $scope.getDateString(new Date());
+	};
+	
+	$scope.revertForm = function() {
+		$scope.job._id = editedJob._id;
+		$scope.job.date = editedJob.date;
+		$scope.job.title = editedJob.title;
+		$scope.job.company = editedJob.company;
+		$scope.job.location = editedJob.location;
+		$scope.job.via = editedJob.via;
 	};
 
 	$scope.getDateString = function(date) {
@@ -126,7 +152,7 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	
 	$("#addJobModal").on("hide.bs.modal", function (e) {
 		$timeout(function () {
-			$scope.resetForm();
+			$scope.clearForm();
 		});
 	});
 });
