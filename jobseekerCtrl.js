@@ -40,14 +40,18 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 
 	$scope.editJob = function() {
 		var id = $scope.job._id;
-		delete $scope.job._id
-		delete $scope.job.__v;
-		delete $scope.job.$$hashKey;
+		var job = {
+			date :  $scope.job.date,
+			title : $scope.job.title,
+			company : $scope.job.company,
+			location : $scope.job.location,
+			via : $scope.job.via 
+		};
 
 		$http({
 			url: "http://127.0.0.1:8000/jobs/" + id,
 			method: "PUT",
-			data: $.param($scope.job),
+			data: $.param(job),
 			headers: { "Content-Type": "application/x-www-form-urlencoded"}})
 		.then(function successCallback(response) {
 			return;
@@ -62,7 +66,6 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	};
 	
 	$scope.deleteJob = function(id, index) {
-		console.log(id);
 		$http({
 			url: "http://127.0.0.1:8000/jobs/" + id,
 			method: "DELETE" })
