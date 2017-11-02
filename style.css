@@ -1,9 +1,4 @@
-button
-{
-	cursor: pointer;
-}
-
-.sortable
+button, .btn, .sortable
 {
 	cursor: pointer;
 }
