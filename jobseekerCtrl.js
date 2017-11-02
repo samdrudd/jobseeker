@@ -1,4 +1,4 @@
-app.controller("jobseekerCtrl", function($scope, $http) {
+app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.sorted = {};
 	
 	$scope.init = function() {
@@ -14,6 +14,13 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		}, function errorCallback(response) {
 			console.log(response.statusText);
 		});
+	};
+	
+	$scope.submitForm = function() {
+		if ($scope.job._id)
+			$scope.editJob();
+		else
+			$scope.addJob();
 	};
 
 	$scope.addJob = function() {
@@ -31,7 +38,31 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		$scope.resetForm();
 	};
 
+	$scope.editJob = function() {
+		var id = $scope.job._id;
+		delete $scope.job._id
+		delete $scope.job.__v;
+		delete $scope.job.$$hashKey;
+
+		$http({
+			url: "http://127.0.0.1:8000/jobs/" + id,
+			method: "PUT",
+			data: $.param($scope.job),
+			headers: { "Content-Type": "application/x-www-form-urlencoded"}})
+		.then(function successCallback(response) {
+			return;
+		}, function errorCallback(response) {
+			console.log(response.statusText);
+		});
+	};		
+	
+	$scope.openEditModal = function(index) {
+		$scope.job = $scope.joblist[index];
+		$scope.job.date = $scope.getDateString($scope.job.date);
+	};
+	
 	$scope.deleteJob = function(id, index) {
+		console.log(id);
 		$http({
 			url: "http://127.0.0.1:8000/jobs/" + id,
 			method: "DELETE" })
@@ -40,7 +71,6 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		}, function(response) {
 			console.log(response.statusText);
 		});
-
 	};
 
 	$scope.resetForm = function() {
@@ -90,4 +120,10 @@ app.controller("jobseekerCtrl", function($scope, $http) {
 		} else
 			return "fa-sort";
 	};
+	
+	$("#addJobModal").on("hide.bs.modal", function (e) {
+		$timeout(function () {
+			$scope.resetForm();
+		});
+	});
 });

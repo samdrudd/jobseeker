@@ -54,7 +54,7 @@
 
 							<div class="modal-footer">
 								<input type="button" value="Reset" ng-click="resetForm()"></input>
-								<input type="submit" value="Add Job" ng-click="addJob()" data-dismiss="modal"></input>
+								<input type="submit" value="Submit" ng-click="submitForm()" data-dismiss="modal"></input>
 							</div>
 
 						</form>
@@ -81,12 +81,14 @@
 						<td>{{ job.company }}</td>
 						<td>{{ job.location }}</td>
 						<td>{{ job.via }}</td>
-						<td><button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button></td>
+						<td>
+							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal($index)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
+							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
 		<script src="jobseekerApp.js"></script>
 		<script src="jobseekerCtrl.js"></script>
 	</body>
