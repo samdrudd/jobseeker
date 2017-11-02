@@ -86,11 +86,10 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	};
 
 	$scope.resetForm = function() {
-		if ($scope.job._id) {
+		if ($scope.job._id)
 			$scope.revertForm();
-		} else {
+		else
 			$scope.clearForm();
-		}
 	};
 	
 	$scope.clearForm = function() {
