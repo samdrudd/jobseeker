@@ -1,6 +1,7 @@
 app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.sorted = {};
 	var editedJob = {};
+	$scope.searchTerm = "";
 	
 	$scope.init = function() {
 		$scope.job = {};
@@ -154,4 +155,19 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 			$scope.clearForm();
 		});
 	});
+	
+	$scope.search = function() {
+		console.log("here");
+		if ($scope.searchTerm.trim() === "")
+			return;
+		else {
+			var result = $scope.joblist.filter(job => 
+				job.title.includes($scope.searchTerm) || 
+				job.company.includes($scope.searchTerm) || 
+				job.location.includes($scope.searchTerm) ||
+				job.via.includes($scope.searchTerm)	);
+			$scope.joblist = result;
+		}
+		
+	}
 });
