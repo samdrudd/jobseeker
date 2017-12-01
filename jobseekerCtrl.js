@@ -157,15 +157,15 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	});
 	
 	$scope.search = function() {
-		console.log("here");
-		if ($scope.searchTerm.trim() === "")
+		var term = $scope.searchTerm.trim();
+		if (term === "")
 			return;
 		else {
 			var result = $scope.joblist.filter(job => 
-				job.title.includes($scope.searchTerm) || 
-				job.company.includes($scope.searchTerm) || 
-				job.location.includes($scope.searchTerm) ||
-				job.via.includes($scope.searchTerm)	);
+				job.title.includes(term) || 
+				job.company.includes(term) || 
+				job.location.includes(term) ||
+				job.via.includes(term)	);
 			$scope.joblist = result;
 		}
 		
