@@ -15,7 +15,7 @@
 	
 	<body>
 		<div ng-app="jobseeker" ng-controller="jobseekerCtrl" ng-init="init()">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<span class="navbar-brand" href="#">JobSeeker</span>
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
@@ -27,6 +27,9 @@
 					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="searchTerm">
 					<input type="submit" class="btn btn-success my-2 my-sm-0" ng-click="search()"></input>
 				</form>
+				&nbsp;
+				<button type="button" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()">Reset Filters</button>
+				
 			</nav>
 		
 

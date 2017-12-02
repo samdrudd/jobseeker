@@ -8,6 +8,17 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		$scope.job.date = $scope.getDateString(new Date());
 		$scope.joblist = [];
 
+		$scope.getJobList();
+	};
+	
+	$scope.submitForm = function() {
+		if ($scope.job._id)
+			$scope.editJob();
+		else
+			$scope.addJob();
+	};
+	
+	$scope.getJobList = function() {
 		$http({
 			url: "http://127.0.0.1:8000/jobs",
 			method: "GET"})
@@ -16,13 +27,6 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		}, function errorCallback(response) {
 			console.log(response.statusText);
 		});
-	};
-	
-	$scope.submitForm = function() {
-		if ($scope.job._id)
-			$scope.editJob();
-		else
-			$scope.addJob();
 	};
 
 	$scope.addJob = function() {
@@ -170,4 +174,10 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		}
 		
 	}
+	
+	$scope.resetFilters = function() {
+		$scope.getJobList();
+		$scope.searchTerm = "";
+	};
+	
 });
