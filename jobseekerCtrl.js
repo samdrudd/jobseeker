@@ -1,10 +1,10 @@
 app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
+	$scope.job = {};
 	$scope.sorted = {};
+	$scope.filter = {};
 	var editedJob = {};
-	$scope.searchTerm = "";
-	
+
 	$scope.init = function() {
-		$scope.job = {};
 		$scope.job.date = $scope.getDateString(new Date());
 		$scope.joblist = [];
 
@@ -160,7 +160,7 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		});
 	});
 	
-	$scope.search = function() {
+	$scope.filter = function() {
 		var term = $scope.searchTerm.trim();
 		if (term === "")
 			return;

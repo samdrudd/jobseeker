@@ -24,8 +24,10 @@
 				</ul>
 				
 				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="searchTerm">
-					<input type="submit" class="btn btn-success my-2 my-sm-0" ng-click="search()"></input>
+					From Date&nbsp;<input class="form-control mr-sm-1" type="date" ngmodel="filter.fromDate">
+					To Date&nbsp;<input class="form-control mr-sm-1" type="date" ngmodel="filter.toDate">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
+					<input type="submit" class="btn btn-success my-2 my-sm-0" ng-click="filter()"></input>
 				</form>
 				&nbsp;
 				<button type="button" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()">Reset Filters</button>
