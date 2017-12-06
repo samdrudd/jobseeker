@@ -25,14 +25,16 @@
 				
 				<form class="form-inline my-2">
 					<div class="form-group">
-						<input class="form-control mr-sm-1" type="text" placeholder="From Date" ngmodel="filter.fromDate" id="fromDate"></input>
+						<label for="fromDate" class="mr-sm-1">From Date:</label>
+						<input class="form-control mr-sm-1" type="date" ng-model="filter.fromDate" id="fromDate"></input>
 					</div>
 					<div class="form-group">
-						<input class="form-control mr-sm-1" type="text" placeholder="To Date" ngmodel="filter.toDate" id="toDate"></input>
+						<label for="toDate" class="mr-sm-1">To Date:</label>
+						<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
 					</div>
 					<input class="form-control mr-sm-2" type="text" placeholder="Search" ng-model="filter.searchTerm">
 					<input type="submit" value="Apply Filters" class="btn btn-success mr-sm-1" ng-click="applyFilters()"></input>
-					<input type="button" value="Reset Filters" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()"></input>
+					<input type="reset" value="Reset Filters" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()"></input>
 				</form>
 				
 				

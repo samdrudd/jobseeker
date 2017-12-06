@@ -161,11 +161,23 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	});
 	
 	$scope.applyFilters = function() {
-		console.log($scope.filter.fromDate);
-		var term = $scope.searchTerm.trim();
-		if (term === "")
-			return;
-		else {
+		var fromDate = new Date($scope.filter.fromDate);
+		var toDate = new Date($scope.filter.toDate);
+		
+		if ($scope.filter.searchTerm)
+			var term = $scope.filter.searchTerm.trim();
+		
+		if (fromDate != "Invalid Date" && toDate != "Invalid Date")
+		{
+			var result = $scope.joblist.filter(job =>
+				new Date(job.date) >= fromDate && 
+				new Date(job.date) <= toDate);
+				
+			$scope.joblist = result;
+		}
+		
+		if (term)
+		{
 			var result = $scope.joblist.filter(job => 
 				job.title.includes(term) || 
 				job.company.includes(term) || 
@@ -179,8 +191,6 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.resetFilters = function() {
 		$scope.getJobList();
 		$scope.filter = {};
-		$scope.filter.fromDate = "";
-		$scope.filter.toDate = "";
 	};
 	
 });
