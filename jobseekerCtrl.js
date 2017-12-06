@@ -160,7 +160,8 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		});
 	});
 	
-	$scope.filter = function() {
+	$scope.applyFilters = function() {
+		console.log($scope.filter.fromDate);
 		var term = $scope.searchTerm.trim();
 		if (term === "")
 			return;
@@ -177,7 +178,9 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	
 	$scope.resetFilters = function() {
 		$scope.getJobList();
-		$scope.searchTerm = "";
+		$scope.filter = {};
+		$scope.filter.fromDate = "";
+		$scope.filter.toDate = "";
 	};
 	
 });

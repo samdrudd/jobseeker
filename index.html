@@ -23,14 +23,18 @@
 					</li>
 				</ul>
 				
-				<form class="form-inline my-2 my-lg-0">
-					From Date&nbsp;<input class="form-control mr-sm-1" type="date" ngmodel="filter.fromDate">
-					To Date&nbsp;<input class="form-control mr-sm-1" type="date" ngmodel="filter.toDate">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
-					<input type="submit" class="btn btn-success my-2 my-sm-0" ng-click="filter()"></input>
+				<form class="form-inline my-2">
+					<div class="form-group">
+						<input class="form-control mr-sm-1" type="text" placeholder="From Date" ngmodel="filter.fromDate" id="fromDate"></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control mr-sm-1" type="text" placeholder="To Date" ngmodel="filter.toDate" id="toDate"></input>
+					</div>
+					<input class="form-control mr-sm-2" type="text" placeholder="Search" ng-model="filter.searchTerm">
+					<input type="submit" value="Apply Filters" class="btn btn-success mr-sm-1" ng-click="applyFilters()"></input>
+					<input type="button" value="Reset Filters" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()"></input>
 				</form>
-				&nbsp;
-				<button type="button" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()">Reset Filters</button>
+				
 				
 			</nav>
 		
