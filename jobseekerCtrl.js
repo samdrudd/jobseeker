@@ -5,7 +5,7 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	var editedJob = {};
 
 	$scope.init = function() {
-		$scope.job.date = $scope.getDateString(new Date());
+		$scope.job.date = new Date();
 		$scope.joblist = [];
 
 		$scope.getJobList();
@@ -191,6 +191,7 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.resetFilters = function() {
 		$scope.getJobList();
 		$scope.filter = {};
+		$scope.sorted = {};
 	};
 	
 });
