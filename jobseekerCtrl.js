@@ -2,12 +2,11 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	$scope.job = {};
 	$scope.sorted = {};
 	$scope.filter = {};
+	$scope.job.date = new Date();
+	$scope.joblist = [];
 	var editedJob = {};
 
 	$scope.init = function() {
-		$scope.job.date = new Date();
-		$scope.joblist = [];
-
 		$scope.getJobList();
 	};
 	
