@@ -165,8 +165,8 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		var toDate = new Date($scope.filter.toDate);
 		
 		if ($scope.filter.searchTerm)
-			var term = $scope.filter.searchTerm.trim();
-		
+			var term = $scope.filter.searchTerm.trim().toLowerCase();
+				
 		if (fromDate != "Invalid Date" && toDate != "Invalid Date")
 		{
 			var result = $scope.joblist.filter(job =>
@@ -179,10 +179,10 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 		if (term)
 		{
 			var result = $scope.joblist.filter(job => 
-				job.title.includes(term) || 
-				job.company.includes(term) || 
-				job.location.includes(term) ||
-				job.via.includes(term)	);
+				job.title.toLowerCase().includes(term) || 
+				job.company.toLowerCase().includes(term) || 
+				job.location.toLowerCase().includes(term) ||
+				job.via.toLowerCase().includes(term)	);
 			$scope.joblist = result;
 		}
 		
