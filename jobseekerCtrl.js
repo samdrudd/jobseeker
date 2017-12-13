@@ -145,12 +145,9 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	};
 	
 	$scope.getSortedIcon = function(colname) {
-		if ($scope.isSortedBy(colname)) {
-			if ($scope.sorted.order === "asc")
-				return "fa-sort-asc";
-			else
-				return "fa-sort-desc";
-		} else
+		if ($scope.isSortedBy(colname))
+			return "fa-sort-" + $scope.sorted.order;
+		else
 			return "fa-sort";
 	};
 	
@@ -182,7 +179,8 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 				job.title.toLowerCase().includes(term) || 
 				job.company.toLowerCase().includes(term) || 
 				job.location.toLowerCase().includes(term) ||
-				job.via.toLowerCase().includes(term)	);
+				job.via.toLowerCase().includes(term));
+				
 			$scope.joblist = result;
 		}
 		
