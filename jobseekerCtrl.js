@@ -157,14 +157,15 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 	});
 	
 	$scope.applyFilters = function() {
-		var fromDate = new Date($scope.filter.fromDate);
-		var toDate = new Date($scope.filter.toDate);
 		
-		if ($scope.filter.searchTerm)
-			var term = $scope.filter.searchTerm.trim().toLowerCase();
-				
-		if (fromDate != "Invalid Date" && toDate != "Invalid Date")
+		// Filter by date
+		// @TODO: Find a way to make this logic a little nicer?
+		// For some reason, the first time 'apply filters' is clicked, the dates are undefined. Every time after that, they are null
+		if ($scope.filter.fromDate !== null && $scope.filter.fromDate !== undefined && $scope.filter.toDate !== null && $scope.filter.toDate !== undefined)
 		{
+			var fromDate = new Date($scope.filter.fromDate);
+			var toDate = new Date($scope.filter.toDate);
+			
 			var result = $scope.joblist.filter(job =>
 				new Date(job.date) >= fromDate && 
 				new Date(job.date) <= toDate);
@@ -172,8 +173,11 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 			$scope.joblist = result;
 		}
 		
-		if (term)
+		// Filter by search term
+		if ($scope.filter.searchTerm)
 		{
+			var term = $scope.filter.searchTerm.trim().toLowerCase();
+			
 			var result = $scope.joblist.filter(job => 
 				job.title.toLowerCase().includes(term) || 
 				job.company.toLowerCase().includes(term) || 
