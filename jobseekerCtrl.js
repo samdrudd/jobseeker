@@ -172,21 +172,6 @@ app.controller("jobseekerCtrl", function($scope, $http, $timeout) {
 				
 			$scope.joblist = result;
 		}
-		
-		// Filter by search term
-		if ($scope.filter.searchTerm)
-		{
-			var term = $scope.filter.searchTerm.trim().toLowerCase();
-			
-			var result = $scope.joblist.filter(job => 
-				job.title.toLowerCase().includes(term) || 
-				job.company.toLowerCase().includes(term) || 
-				job.location.toLowerCase().includes(term) ||
-				job.via.toLowerCase().includes(term));
-				
-			$scope.joblist = result;
-		}
-		
 	}
 	
 	$scope.resetFilters = function() {

@@ -98,7 +98,7 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="job in joblist" class="row">
+					<tr ng-repeat="job in joblist | filter:filter.searchTerm" class="row">
 						<td class="col-md-1 text-center ">
 							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal($index)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button>
