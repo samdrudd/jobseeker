@@ -33,7 +33,6 @@
 						<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
 					</div>
 					<input class="form-control mr-sm-2" type="text" placeholder="Search" ng-model="filter.searchTerm">
-					<input type="submit" value="Apply Filters" class="btn btn-success mr-sm-1" ng-click="applyFilters()"></input>
 					<input type="reset" value="Reset Filters" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()"></input>
 				</form>
 				
@@ -98,7 +97,7 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="job in joblist | filter:filter.searchTerm" class="row">
+					<tr ng-repeat="job in joblist | filter: filter.searchTerm | filter: dateFilter" class="row">
 						<td class="col-md-1 text-center ">
 							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal($index)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button>
