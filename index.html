@@ -88,19 +88,19 @@
 				<thead>
 					<tr class="row">
 						<th class="col-md-1">&nbsp;</th>
-						<th class="col-md-1">Date Applied</th>
-						<th id="titleCol" ng-click="sort('title')" class="sortable col-md-3" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
-						<th id="companyCol" ng-click="sort('company')" class="sortable col-md-3" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
-						<th id="locationCol" ng-click="sort('location')" class="sortable col-md-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
-						<th id="viaCol" ng-click="sort('via')" class="sortable col-md-2" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>		
+						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-1" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
+						<th id="titleCol" ng-click="sortBy('title')" class="sortable col-md-3" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
+						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-md-3" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
+						<th id="locationCol" ng-click="sortBy('location')" class="sortable col-md-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
+						<th id="viaCol" ng-click="sortBy('via')" class="sortable col-md-2" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>		
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="job in joblist | filter: filter.searchTerm | filter: dateFilter" class="row">
+					<tr ng-repeat="job in joblist | filter: filter.searchTerm | filter: dateFilter | orderBy: sort.orderBy : sort.reverse" class="row">
 						<td class="col-md-1 text-center ">
-							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal($index)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
-							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job._id, $index)">DEL</button>
+							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
+							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
 						<td class="col-md-1 pt-3">{{ getDateString(job.date) }}</td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>

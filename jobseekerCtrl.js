@@ -1,13 +1,16 @@
 app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory', 
 	function($scope, $http, $timeout, jobFactory) {
 		$scope.job = {};
-		$scope.sorted = {};
+		$scope.sort = {};
 		$scope.filter = {};
-		$scope.job.date = new Date();
 		$scope.joblist = [];
 		var editedJob = {};
 
 		$scope.init = function() {
+			$scope.job.date = new Date();
+			$scope.sort.orderBy = '';
+			$scope.sort.reverse = false;
+			
 			$scope.getJobList();
 		};
 		
@@ -56,21 +59,34 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			});
 		};		
 		
-		$scope.openEditModal = function(index) {
-			$scope.job = $scope.joblist[index];
-			$scope.job.date = $scope.getDateString($scope.job.date);
+		$scope.openEditModal = function(job) {
+			job.date = $scope.getDateString(job.date);
+			
 			editedJob = {
-				_id : $scope.job._id,
-				date :  $scope.job.date,
-				title : $scope.job.title,
-				company : $scope.job.company,
-				location : $scope.job.location,
-				via : $scope.job.via 
+				_id : job._id,
+				date :  job.date,
+				title : job.title,
+				company : job.company,
+				location : job.location,
+				via : job.via 
 			};
+			
+			$scope.job = job;
 		};
 		
-		$scope.deleteJob = function(id, index) {
-			jobFactory.deleteJob(id)
+		var findIndexByID = function(id) {
+			for (var i = 0; i < $scope.joblist.length; i++) {
+				if ($scope.joblist[i]._id === id)
+					return i;
+			}
+			
+			return -1;
+		}
+		
+		$scope.deleteJob = function(job) {
+			var index = findIndexByID(job._id);
+			
+			jobFactory.deleteJob(job._id)
 			.then(function(response) {
 				$scope.joblist.splice(index, 1);
 			}, function(response) {
@@ -104,37 +120,34 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			return (dt.getMonth()+1) + "/" + dt.getDate() + "/" + dt.getFullYear();
 		};
 		
-		$scope.sort = function(colname) {
-			if ($scope.sorted.column !== colname) {
-				$scope.sorted.column = colname;
-				$scope.sorted.order = "asc";
-				$scope.joblist.sort(function(a, b) {
-						var x = a[colname].toLowerCase();
-						var y = b[colname].toLowerCase();
-						if (x < y) { return -1; }
-						if (x > y) { return 1; }
-						return 0;
-					});
-			} else {
-				$scope.joblist.reverse();
-				$scope.sorted.order === "asc" ? $scope.sorted.order = "desc" : $scope.sorted.order = "asc";
-			}	
+		$scope.sortBy = function(colname) {
+			if ($scope.sort.orderBy === colname)
+				$scope.sort.reverse = !$scope.sort.reverse;
+			else {
+				$scope.sort.orderBy = colname;
+				$scope.sort.reverse = false;
+			}
 		};
 		
 		$scope.isSortedBy = function(colname) {
-			return $scope.sorted.column === colname;
+			return $scope.sort.orderBy === colname;
 		};
 		
 		$scope.getSortedClass = function(colname) {
-			if ($scope.sorted.column === colname)
+			if ($scope.isSortedBy(colname))
 				return "text-muted";
 			else
 				return "";
 		};
 		
 		$scope.getSortedIcon = function(colname) {
+			if ($scope.sort.reverse)
+				var direction = "desc";
+			else
+				var direction = "asc";
+			
 			if ($scope.isSortedBy(colname))
-				return "fa-sort-" + $scope.sorted.order;
+				return "fa-sort-" + direction;
 			else
 				return "fa-sort";
 		};
