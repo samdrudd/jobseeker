@@ -1,9 +1,10 @@
-app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory', 
-	function($scope, $http, $timeout, jobFactory) {
+app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', '$filter', 'jobFactory', 
+	function($scope, $http, $timeout, $filter, jobFactory) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
 		$scope.joblist = [];
+		
 		var editedJob = {};
 
 		$scope.init = function() {
@@ -11,17 +12,17 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			$scope.sort.orderBy = '';
 			$scope.sort.reverse = false;
 			
-			$scope.getJobList();
+			_getJobList();
 		};
 		
 		$scope.submitForm = function() {
 			if ($scope.job._id)
-				$scope.editJob();
+				_editJob();
 			else
-				$scope.addJob();
+				_addJob();
 		};
 		
-		$scope.getJobList = function() {
+		var _getJobList = function() {
 			jobFactory.getAllJobs()
 			.then(function successCallback(response) {
 				$scope.joblist = response.data;
@@ -30,7 +31,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			});
 		};
 
-		$scope.addJob = function() {
+		var _addJob = function() {
 			jobFactory.addJob($scope.job)
 			.then(function successCallback(response) {
 				$scope.joblist.push(response.data);
@@ -41,7 +42,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			$scope.resetForm();
 		};
 
-		$scope.editJob = function() {
+		var _editJob = function() {
 			var id = $scope.job._id;
 			var job = {
 				date :  $scope.job.date,
@@ -60,7 +61,8 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		};		
 		
 		$scope.openEditModal = function(job) {
-			job.date = $scope.getDateString(job.date);
+			
+			job.date = new Date(job.date);
 			
 			editedJob = {
 				_id : job._id,
@@ -74,7 +76,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			$scope.job = job;
 		};
 		
-		var findIndexByID = function(id) {
+		var _findIndexByID = function(id) {
 			for (var i = 0; i < $scope.joblist.length; i++) {
 				if ($scope.joblist[i]._id === id)
 					return i;
@@ -84,7 +86,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		}
 		
 		$scope.deleteJob = function(job) {
-			var index = findIndexByID(job._id);
+			var index = _findIndexByID(job._id);
 			
 			jobFactory.deleteJob(job._id)
 			.then(function(response) {
@@ -96,17 +98,17 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 
 		$scope.resetForm = function() {
 			if ($scope.job._id)
-				$scope.revertForm();
+				_revertForm();
 			else
-				$scope.clearForm();
+				_clearForm();
 		};
 		
-		$scope.clearForm = function() {
+		var _clearForm = function() {
 			$scope.job = {};
-			$scope.job.date = $scope.getDateString(new Date());
+			$scope.job.date = new Date();
 		};
 		
-		$scope.revertForm = function() {
+		var _revertForm = function() {
 			$scope.job._id = editedJob._id;
 			$scope.job.date = editedJob.date;
 			$scope.job.title = editedJob.title;
@@ -115,13 +117,12 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			$scope.job.via = editedJob.via;
 		};
 
-		$scope.getDateString = function(date) {
-			var dt = new Date(date);
-			return (dt.getMonth()+1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+		var _isSortedBy = function(colname) {
+			return $scope.sort.orderBy === colname;
 		};
 		
 		$scope.sortBy = function(colname) {
-			if ($scope.sort.orderBy === colname)
+			if (_isSortedBy(colname))
 				$scope.sort.reverse = !$scope.sort.reverse;
 			else {
 				$scope.sort.orderBy = colname;
@@ -129,12 +130,8 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			}
 		};
 		
-		$scope.isSortedBy = function(colname) {
-			return $scope.sort.orderBy === colname;
-		};
-		
 		$scope.getSortedClass = function(colname) {
-			if ($scope.isSortedBy(colname))
+			if (_isSortedBy(colname))
 				return "text-muted";
 			else
 				return "";
@@ -146,7 +143,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 			else
 				var direction = "asc";
 			
-			if ($scope.isSortedBy(colname))
+			if (_isSortedBy(colname))
 				return "fa-sort-" + direction;
 			else
 				return "fa-sort";
@@ -154,7 +151,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
-				$scope.clearForm();
+				_clearForm();
 			});
 		});
 		

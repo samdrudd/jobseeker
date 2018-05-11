@@ -102,7 +102,7 @@
 							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
-						<td class="col-md-1 pt-3">{{ getDateString(job.date) }}</td>
+						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>
 						<td class="col-md-3 pt-3">{{ job.company }}</td>
 						<td class="col-md-2 pt-3">{{ job.location }}</td>
