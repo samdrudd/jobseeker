@@ -19,5 +19,19 @@ app.factory('jobFactory', ['$http', function($http) {
 				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
 	};
 	
+	jobFactory.editJob = function(id, job) {
+		return $http({
+				url: urlBase + "jobs/" + id,
+				method: "PUT",
+				data: $.param(job),
+				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
+	};
+	
+	jobFactory.deleteJob = function(id) {
+		return $http({
+				url: urlBase + "jobs/" + id,
+				method: "DELETE" });
+	};
+	
 	return jobFactory;
 }]);

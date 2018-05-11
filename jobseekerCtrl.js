@@ -48,11 +48,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 				via : $scope.job.via 
 			};
 
-			$http({
-				url: "http://127.0.0.1:8000/jobs/" + id,
-				method: "PUT",
-				data: $.param(job),
-				headers: { "Content-Type": "application/x-www-form-urlencoded"}})
+			jobFactory.editJob(id, job)
 			.then(function successCallback(response) {
 				return;
 			}, function errorCallback(response) {
@@ -74,9 +70,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		};
 		
 		$scope.deleteJob = function(id, index) {
-			$http({
-				url: "http://127.0.0.1:8000/jobs/" + id,
-				method: "DELETE" })
+			jobFactory.deleteJob(id)
 			.then(function(response) {
 				$scope.joblist.splice(index, 1);
 			}, function(response) {
