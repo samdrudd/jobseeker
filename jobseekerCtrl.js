@@ -8,7 +8,6 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		var editedJob = {};
 
 		$scope.init = function() {
-			jobFactory.hello();
 			$scope.getJobList();
 		};
 		
@@ -20,9 +19,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		};
 		
 		$scope.getJobList = function() {
-			$http({
-				url: "http://127.0.0.1:8000/jobs",
-				method: "GET"})
+			jobFactory.getAllJobs()
 			.then(function successCallback(response) {
 				$scope.joblist = response.data;
 			}, function errorCallback(response) {
@@ -31,11 +28,7 @@ app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', 'jobFactory',
 		};
 
 		$scope.addJob = function() {
-			$http({
-				url: "http://127.0.0.1:8000/jobs",
-				method: "POST",
-				data: $.param($scope.job),
-				headers: { "Content-Type": "application/x-www-form-urlencoded"}})
+			jobFactory.addJob($scope.job)
 			.then(function successCallback(response) {
 				$scope.joblist.push(response.data);
 			}, function errorCallback(response) {
