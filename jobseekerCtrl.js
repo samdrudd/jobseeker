@@ -1,5 +1,5 @@
-app.controller("jobseekerCtrl", ['$scope', '$http', '$timeout', '$filter', 'jobFactory', 
-	function($scope, $http, $timeout, $filter, jobFactory) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
+	function($scope, $timeout, $filter, jobFactory) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};

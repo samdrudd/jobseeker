@@ -32,8 +32,8 @@
 						<label for="toDate" class="mr-sm-1">To Date:</label>
 						<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
 					</div>
-					<input class="form-control mr-sm-2" type="text" placeholder="Search" ng-model="filter.searchTerm">
-					<input type="reset" value="Reset Filters" role="button" class="btn navbar-btn btn-warning" ng-click="resetFilters()"></input>
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
+					<input type="reset" value="Reset Filters" role="button" class="btn" ng-click="resetFilters()"></input>
 				</form>
 				
 				
@@ -88,9 +88,9 @@
 				<thead>
 					<tr class="row">
 						<th class="col-md-1">&nbsp;</th>
-						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-1" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
+						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-2" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
 						<th id="titleCol" ng-click="sortBy('title')" class="sortable col-md-3" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
-						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-md-3" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
+						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-md-2" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
 						<th id="locationCol" ng-click="sortBy('location')" class="sortable col-md-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
 						<th id="viaCol" ng-click="sortBy('via')" class="sortable col-md-2" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>		
 					</tr>
@@ -102,9 +102,9 @@
 							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
-						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
+						<td class="col-md-2 pt-3">{{ job.date | date: 'shortDate' }}</td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>
-						<td class="col-md-3 pt-3">{{ job.company }}</td>
+						<td class="col-md-2 pt-3">{{ job.company }}</td>
 						<td class="col-md-2 pt-3">{{ job.location }}</td>
 						<td class="col-md-2 pt-3">{{ job.via }}</td>
 						
