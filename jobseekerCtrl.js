@@ -17,29 +17,25 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		};
 		
 		$scope.submitForm = function() {
-			if ($scope.job._id)
-				_editJob();
-			else
-				_addJob();
+			$scope.job._id ? _editJob() : _addJob();
 		};
 		
 		var _getJobList = function() {
 			jobFactory.getAllJobs()
-			.then(function successCallback(response) {
-				$scope.joblist = response.data;
-			}, function errorCallback(response) {
-				console.log(response.statusText);
-			});
+				.then(
+					(response) => { $scope.joblist = response.data; }, 
+					(response) => { console.log(response.statusText); }
+				);
 		};
 
 		var _addJob = function() {
 			$scope.job.date.setHours(0,0,0,0);
+			
 			jobFactory.addJob($scope.job)
-			.then(function successCallback(response) {
-				$scope.joblist.push(response.data);
-			}, function errorCallback(response) {
-				console.log(response.statusText);
-			});
+				.then(
+					(response) => { $scope.joblist.push(response.data); }, 
+					(response) => { console.log(response.statusText); }
+			);
 
 			$scope.resetForm();
 		};
@@ -55,11 +51,10 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 			};
 
 			jobFactory.editJob(id, job)
-			.then(function successCallback(response) {
-				return;
-			}, function errorCallback(response) {
-				console.log(response.statusText);
-			});
+				.then(
+					(response) => { return; }, 
+					(response) => { console.log(response.statusText); }
+				);
 		};		
 		
 		$scope.openEditModal = function(job) {
@@ -91,18 +86,14 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 			var index = _findIndexByID(job._id);
 			
 			jobFactory.deleteJob(job._id)
-			.then(function(response) {
-				$scope.joblist.splice(index, 1);
-			}, function(response) {
-				console.log(response.statusText);
-			});
+				.then(
+					(response) => { $scope.joblist.splice(index, 1); }, 
+					(response) => { console.log(response.statusText); }
+				);
 		};
 
 		$scope.resetForm = function() {
-			if ($scope.job._id)
-				_revertForm();
-			else
-				_clearForm();
+			$scope.job._id ? _revertForm() : _clearForm();
 		};
 		
 		var _clearForm = function() {
