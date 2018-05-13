@@ -6,9 +6,10 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		$scope.joblist = [];
 		
 		var editedJob = {};
-
+		
 		$scope.init = function() {
 			$scope.job.date = new Date();
+			$scope.job.date.setHours(0,0,0,0);
 			$scope.sort.orderBy = '';
 			$scope.sort.reverse = false;
 			
@@ -32,6 +33,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		};
 
 		var _addJob = function() {
+			$scope.job.date.setHours(0,0,0,0);
 			jobFactory.addJob($scope.job)
 			.then(function successCallback(response) {
 				$scope.joblist.push(response.data);
@@ -156,13 +158,8 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		});
 		
 		$scope.dateFilter = function(obj) {
-			if ($scope.filter.fromDate && new Date(obj.date) < new Date($scope.filter.fromDate))
-				return false;
-			
-			if ($scope.filter.toDate && new Date(obj.date) > new Date($scope.filter.toDate))
-				return false;
-			
-			return true;
+			var jobDate = new Date(obj.date);
+			return (!$scope.filter.fromDate || jobDate >= new Date($scope.filter.fromDate)) && (!$scope.filter.toDate || jobDate <= new Date($scope.filter.toDate))
 		}
 		
 		$scope.resetFilters = function() {
