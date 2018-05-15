@@ -1,11 +1,11 @@
 var app = angular.module("jobseeker", []);
 
-app.factory('jobFactory', ['$http', function($http) {
+app.factory('Job', ['$http', function($http) {
 	
-	var jobFactory = {};
+	var Job = {};
 	var urlBase = "http://127.0.0.1:8000/";
 	
-	jobFactory.job = function(job) {
+	Job.job = function(job) {
 		return {
 			_id : job._id,
 			date :  job.date,
@@ -16,13 +16,13 @@ app.factory('jobFactory', ['$http', function($http) {
 		};
 	}
 	
-	jobFactory.getAllJobs = function() {
+	Job.getAllJobs = function() {
 		return $http({
 				url: urlBase + "jobs",
 				method: "GET"});
 	};
 	
-	jobFactory.addJob = function(job) {
+	Job.addJob = function(job) {
 		return $http({
 				url: urlBase + "jobs",
 				method: "POST",
@@ -30,7 +30,7 @@ app.factory('jobFactory', ['$http', function($http) {
 				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
 	};
 	
-	jobFactory.editJob = function(id, job) {
+	Job.editJob = function(id, job) {
 		return $http({
 				url: urlBase + "jobs/" + id,
 				method: "PUT",
@@ -38,13 +38,13 @@ app.factory('jobFactory', ['$http', function($http) {
 				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
 	};
 	
-	jobFactory.deleteJob = function(id) {
+	Job.deleteJob = function(id) {
 		return $http({
 				url: urlBase + "jobs/" + id,
 				method: "DELETE" });
 	};
 	
-	return jobFactory;
+	return Job;
 }]);
 
 app.factory('Sort', function() {

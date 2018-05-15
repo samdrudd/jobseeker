@@ -1,5 +1,5 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 'Sort',
-	function($scope, $timeout, $filter, jobFactory, Sort) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
+	function($scope, $timeout, $filter, Job, Sort) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
@@ -26,7 +26,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		}
 		
 		var _getJobList = function() {
-			jobFactory.getAllJobs()
+			Job.getAllJobs()
 				.then(
 					(response) => { 
 						$scope.joblist = response.data;
@@ -39,7 +39,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		var _addJob = function() {
 			$scope.job.date.setHours(0,0,0,0);
 			
-			jobFactory.addJob($scope.job)
+			Job.addJob($scope.job)
 				.then(
 					(response) => { $scope.joblist.push(response.data); }, 
 					(response) => { console.log(response.statusText); }
@@ -49,9 +49,9 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		};
 
 		var _editJob = function() {
-			var job = jobFactory.job($scope.job);
+			var job = Job.job($scope.job);
 
-			jobFactory.editJob(job._id, job)
+			Job.editJob(job._id, job)
 				.then(
 					(response) => { $scope.joblist[_findIndexByID(job._id)] = job; }, 
 					(response) => { console.log(response.statusText); }
@@ -59,9 +59,8 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		};		
 		
 		$scope.openEditModal = function(job) {
-			editedJob = jobFactory.job(job);
-			
-			$scope.job = jobFactory.job(job);
+			editedJob = Job.job(job);
+			$scope.job = Job.job(job);
 		};
 		
 		var _findIndexByID = function(id) {
@@ -76,7 +75,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		$scope.deleteJob = function(job) {
 			var index = _findIndexByID(job._id);
 			
-			jobFactory.deleteJob(job._id)
+			Job.deleteJob(job._id)
 				.then(
 					(response) => { $scope.joblist.splice(index, 1); }, 
 					(response) => { console.log(response.statusText); }
@@ -132,8 +131,8 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 			});
 		});
 		
-		$scope.dateFilter = function(obj) {
-			var jobDate = new Date(obj.date);
+		$scope.dateFilter = function(job) {
+			var jobDate = new Date(job.date);
 			return (!$scope.filter.fromDate || jobDate >= new Date($scope.filter.fromDate)) && (!$scope.filter.toDate || jobDate <= new Date($scope.filter.toDate))
 		}
 		
