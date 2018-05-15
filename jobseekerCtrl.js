@@ -20,10 +20,18 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 			$scope.job._id ? _editJob() : _addJob();
 		};
 		
+		var _normalizeDates = function() {
+			for (var i = 0; i < $scope.joblist.length; i++)
+				$scope.joblist[i].date = new Date($scope.joblist[i].date);
+		}
+		
 		var _getJobList = function() {
 			jobFactory.getAllJobs()
 				.then(
-					(response) => { $scope.joblist = response.data; }, 
+					(response) => { 
+						$scope.joblist = response.data;
+						_normalizeDates();
+						}, 
 					(response) => { console.log(response.statusText); }
 				);
 		};
@@ -60,6 +68,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		$scope.openEditModal = function(job) {
 			
 			job.date = new Date(job.date);
+			job.date.setHours(0,0,0,0);
 			
 			editedJob = {
 				_id : job._id,
@@ -155,7 +164,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
-			$scope.sorted = {};
+			$scope.sort = {};
 		};
 	}
 ]);
