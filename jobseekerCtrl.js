@@ -108,11 +108,22 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
 		};
 		
 		$scope.getSortedClass = function(colname) {
-			return Sort.getClass(colname);
+			if (Sort.isSortedBy(colname))
+				return "text-muted";
+			else
+				return "";
 		};
-		
+				
 		$scope.getSortedIcon = function(colname) {
-			return Sort.getIcon(colname);
+			if (Sort.getReverse())
+				var direction = "desc";
+			else
+				var direction = "asc";
+			
+			if (Sort.isSortedBy(colname))
+				return "fa-sort-" + direction;
+			else
+				return "fa-sort";
 		};
 		
 		$("#addJobModal").on("hide.bs.modal", function (e) {

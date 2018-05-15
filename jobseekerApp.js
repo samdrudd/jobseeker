@@ -53,36 +53,17 @@ app.factory('Sort', function() {
 	var _orderBy = "";
 	var _reverse = false;
 	
-	var _isSortedBy = function(colname) {
+	Sort.isSortedBy = function(colname) {
 		return _orderBy === colname;
 	};
 	
 	Sort.by = function(colname) {
-		if (_isSortedBy(colname))
+		if (this.isSortedBy(colname))
 			_reverse = !_reverse;
 		else {
 			_orderBy = colname;
 			_reverse = false;
 		}
-	};
-	
-	Sort.getClass = function(colname) {
-		if (_isSortedBy(colname))
-			return "text-muted";
-		else
-			return "";
-	};
-	
-	Sort.getIcon = function(colname) {
-		if (_reverse)
-			var direction = "desc";
-		else
-			var direction = "asc";
-			
-		if (_isSortedBy(colname))
-			return "fa-sort-" + direction;
-		else
-			return "fa-sort";
 	};
 	
 	Sort.getOrder = function() {
