@@ -49,33 +49,19 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		};
 
 		var _editJob = function() {
-			var id = $scope.job._id;
-			var job = {
-				date :  $scope.job.date,
-				title : $scope.job.title,
-				company : $scope.job.company,
-				location : $scope.job.location,
-				via : $scope.job.via 
-			};
+			var job = jobFactory.job($scope.job);
 
-			jobFactory.editJob(id, job)
+			jobFactory.editJob(job._id, job)
 				.then(
-					(response) => { return; }, 
+					(response) => { $scope.joblist[_findIndexByID(job._id)] = job; }, 
 					(response) => { console.log(response.statusText); }
 				);
 		};		
 		
 		$scope.openEditModal = function(job) {
-			editedJob = {
-				_id : job._id,
-				date :  job.date,
-				title : job.title,
-				company : job.company,
-				location : job.location,
-				via : job.via 
-			};
+			editedJob = jobFactory.job(job);
 			
-			$scope.job = job;
+			$scope.job = jobFactory.job(job);
 		};
 		
 		var _findIndexByID = function(id) {
