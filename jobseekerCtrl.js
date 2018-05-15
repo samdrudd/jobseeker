@@ -1,5 +1,5 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 
-	function($scope, $timeout, $filter, jobFactory) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory', 'Sort',
+	function($scope, $timeout, $filter, jobFactory, Sort) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
@@ -10,8 +10,8 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		$scope.init = function() {
 			$scope.job.date = new Date();
 			$scope.job.date.setHours(0,0,0,0);
-			$scope.sort.orderBy = '';
-			$scope.sort.reverse = false;
+			$scope.sort.orderBy = Sort.orderBy;
+			$scope.sort.reverse = Sort.reverse;
 			
 			_getJobList();
 		};
@@ -100,37 +100,19 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 			$scope.job.location = editedJob.location;
 			$scope.job.via = editedJob.via;
 		};
-
-		var _isSortedBy = function(colname) {
-			return $scope.sort.orderBy === colname;
-		};
 		
 		$scope.sortBy = function(colname) {
-			if (_isSortedBy(colname))
-				$scope.sort.reverse = !$scope.sort.reverse;
-			else {
-				$scope.sort.orderBy = colname;
-				$scope.sort.reverse = false;
-			}
+			Sort.by(colname);
+			$scope.sort.orderBy = Sort.getOrder();
+			$scope.sort.reverse = Sort.getReverse();
 		};
 		
 		$scope.getSortedClass = function(colname) {
-			if (_isSortedBy(colname))
-				return "text-muted";
-			else
-				return "";
+			return Sort.getClass(colname);
 		};
 		
 		$scope.getSortedIcon = function(colname) {
-			if ($scope.sort.reverse)
-				var direction = "desc";
-			else
-				var direction = "asc";
-			
-			if (_isSortedBy(colname))
-				return "fa-sort-" + direction;
-			else
-				return "fa-sort";
+			return Sort.getIcon(colname);
 		};
 		
 		$("#addJobModal").on("hide.bs.modal", function (e) {
@@ -146,7 +128,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
-			$scope.sort = {};
+			Sort.clear();
 		};
 	}
 ]);

@@ -46,3 +46,57 @@ app.factory('jobFactory', ['$http', function($http) {
 	
 	return jobFactory;
 }]);
+
+app.factory('Sort', function() {
+	
+	var Sort = {};
+	var _orderBy = "";
+	var _reverse = false;
+	
+	var _isSortedBy = function(colname) {
+		return _orderBy === colname;
+	};
+	
+	Sort.by = function(colname) {
+		if (_isSortedBy(colname))
+			_reverse = !_reverse;
+		else {
+			_orderBy = colname;
+			_reverse = false;
+		}
+	};
+	
+	Sort.getClass = function(colname) {
+		if (_isSortedBy(colname))
+			return "text-muted";
+		else
+			return "";
+	};
+	
+	Sort.getIcon = function(colname) {
+		if (_reverse)
+			var direction = "desc";
+		else
+			var direction = "asc";
+			
+		if (_isSortedBy(colname))
+			return "fa-sort-" + direction;
+		else
+			return "fa-sort";
+	};
+	
+	Sort.getOrder = function() {
+		return _orderBy;
+	};
+	
+	Sort.getReverse = function() {
+		return _reverse;
+	};
+	
+	Sort.clear = function() {
+		_reverse = false;
+		_orderBy = "";
+	};
+	
+	return Sort;
+});
