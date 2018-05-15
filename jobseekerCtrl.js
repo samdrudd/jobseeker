@@ -66,10 +66,6 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'jobFactory',
 		};		
 		
 		$scope.openEditModal = function(job) {
-			
-			job.date = new Date(job.date);
-			job.date.setHours(0,0,0,0);
-			
 			editedJob = {
 				_id : job._id,
 				date :  job.date,
