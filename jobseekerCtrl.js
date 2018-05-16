@@ -90,8 +90,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		var _clearForm = function() {
-			$scope.job = {};
-			$scope.job.date = new Date();
+			$scope.job = Job.job();
 		};
 		
 		var _revertForm = function() {
