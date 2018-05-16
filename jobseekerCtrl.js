@@ -151,7 +151,14 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		
 		$scope.statusFilter = function(job) {
 			return $scope.filter.status === "any" || job.status === $scope.filter.status;
-		};	
+		};
+		
+		$scope.filterStatus = function(status) {
+			if ($scope.filter.status === status)
+				$scope.filter.status = "any"
+			else
+				$scope.filter.status = status;
+		};
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};

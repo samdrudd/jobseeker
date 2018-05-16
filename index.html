@@ -123,7 +123,7 @@
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
 						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
-						<td class="col-md-1 pt-3"><span class="btn btn-sm" ng-class="getStatusClass(job.status)">{{ job.status | capitalize }}</span></td>
+						<td class="col-md-1 pt-3"><span class="btn btn-sm" ng-class="getStatusClass(job.status)" ng-click="filterStatus(job.status)">{{ job.status | capitalize }}</span></td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>
 						<td class="col-md-2 pt-3">{{ job.company }}</td>
 						<td class="col-md-2 pt-3">{{ job.location }}</td>
