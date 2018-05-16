@@ -123,7 +123,15 @@
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
 						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
-						<td class="col-md-1 pt-3"><span class="btn btn-sm" ng-class="getStatusClass(job.status)" ng-click="filterStatus(job.status)">{{ job.status | capitalize }}</span></td>
+						<td class="col-md-1 pt-3">
+							<span class="btn btn-sm dropdown-toggle" ng-class="getStatusClass(job.status)" data-toggle="dropdown">{{ job.status | capitalize }}</span>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" ng-class="(job.status === 'applied') ? 'active' : ''" ng-click="changeJobStatus(job, 'applied')" href="#">Applied</a>
+								<a class="dropdown-item" ng-class="(job.status === 'interviewed') ? 'active' : ''" ng-click="changeJobStatus(job, 'interviewed')" href="#">Interviewed</a>
+								<a class="dropdown-item" ng-class="(job.status === 'offered') ? 'active' : ''" ng-click="changeJobStatus(job, 'offered')" href="#">Offered</a>
+								<a class="dropdown-item" ng-class="(job.status === 'rejected') ? 'active' : ''" ng-click="changeJobStatus(job, 'rejected')" href="#">Rejected</a>
+							</div>
+						</td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>
 						<td class="col-md-2 pt-3">{{ job.company }}</td>
 						<td class="col-md-2 pt-3">{{ job.location }}</td>

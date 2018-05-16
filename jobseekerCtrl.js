@@ -19,7 +19,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		$scope.submitForm = function() {
-			$scope.job._id ? _editJob() : _addJob();
+			$scope.job._id ? _editJob(Job.job($scope.job)) : _addJob();
 		};
 		
 		var _normalizeDates = function() {
@@ -52,9 +52,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.resetForm();
 		};
 
-		var _editJob = function() {
-			var job = Job.job($scope.job);
-
+		var _editJob = function(job) {
 			Job.editJob(job._id, job)
 				.then(
 					(response) => { $scope.joblist[_findIndexByID(job._id)] = job; }, 
@@ -153,12 +151,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			return $scope.filter.status === "any" || job.status === $scope.filter.status;
 		};
 		
-		$scope.filterStatus = function(status) {
-			if ($scope.filter.status === status)
-				$scope.filter.status = "any"
-			else
-				$scope.filter.status = status;
-		};
+		$scope.changeJobStatus = function(job, status) {
+			var change = Job.job(job);
+			change.status = status;
+			
+			_editJob(change);
+		}
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
