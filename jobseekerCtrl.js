@@ -93,12 +93,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		var _revertForm = function() {
-			$scope.job._id = editedJob._id;
-			$scope.job.date = editedJob.date;
-			$scope.job.title = editedJob.title;
-			$scope.job.company = editedJob.company;
-			$scope.job.location = editedJob.location;
-			$scope.job.via = editedJob.via;
+			$scope.job = Job.job(editedJob);
 		};
 		
 		$scope.sortBy = function(colname) {
