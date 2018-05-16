@@ -13,6 +13,8 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.sort.orderBy = Sort.orderBy;
 			$scope.sort.reverse = Sort.reverse;
 			
+			$scope.filter.status = "any";
+			
 			_getJobList();
 		};
 		
@@ -134,7 +136,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				default:
 					return "btn-outline-secondary";
 			}
-		}
+		};
 		
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
@@ -145,10 +147,15 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.dateFilter = function(job) {
 			var jobDate = new Date(job.date);
 			return (!$scope.filter.fromDate || jobDate >= new Date($scope.filter.fromDate)) && (!$scope.filter.toDate || jobDate <= new Date($scope.filter.toDate))
-		}
+		};
+		
+		$scope.statusFilter = function(job) {
+			return $scope.filter.status === "any" || job.status === $scope.filter.status;
+		};	
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
+			$scope.filter.status = "any";
 			Sort.clear();
 		};
 	}
