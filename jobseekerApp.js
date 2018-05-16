@@ -10,6 +10,7 @@ app.factory('Job', ['$http', function($http) {
 			_id : job._id,
 			date :  job.date,
 			title : job.title,
+			status : job.status,
 			company : job.company,
 			location : job.location,
 			via : job.via
