@@ -8,10 +8,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		var editedJob = {};
 		
 		$scope.init = function() {
-			$scope.job.date = new Date();
-			$scope.job.date.setHours(0,0,0,0);
-			
-			$scope.job.status = "applied";
+			$scope.job = Job.job();
 			
 			$scope.sort.orderBy = Sort.orderBy;
 			$scope.sort.reverse = Sort.reverse;
@@ -24,8 +21,10 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		var _normalizeDates = function() {
-			for (var i = 0; i < $scope.joblist.length; i++)
+			for (var i = 0; i < $scope.joblist.length; i++) {
 				$scope.joblist[i].date = new Date($scope.joblist[i].date);
+				$scope.joblist[i].date.setHours(0,0,0,0);
+			}
 		}
 		
 		var _getJobList = function() {
