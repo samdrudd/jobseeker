@@ -10,6 +10,9 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.init = function() {
 			$scope.job.date = new Date();
 			$scope.job.date.setHours(0,0,0,0);
+			
+			$scope.job.status = "applied";
+			
 			$scope.sort.orderBy = Sort.orderBy;
 			$scope.sort.reverse = Sort.reverse;
 			

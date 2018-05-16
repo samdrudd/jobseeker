@@ -57,6 +57,15 @@
 									<input class="form-control" type="date" ng-model="job.date" id="dateInput"></input>
 								</div>
 								<div class="form-group">
+									<label for="statusInput">Status:</label>
+									<select class="form-control" ng-model="job.status" id="statusInput">
+										<option value="applied">Applied</option>
+										<option value="interviewed">Interviewed</option>
+										<option value="offered">Offer Received</option>
+										<option value="rejected">Rejected</option>
+									</select>
+								</div>
+								<div class="form-group">
 									<label for="titleInput">Job Title:</label>
 									<input class="form-control" type="text" ng-model="job.title" id="titleInput"></input>
 								</div>
