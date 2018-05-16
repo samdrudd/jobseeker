@@ -25,6 +25,16 @@
 				
 				<form class="form-inline my-2">
 					<div class="form-group">
+						<label for"statusFilter" class="mr-sm-1">Status:</label>
+						<select class="form-control mr-sm-1" ng-model="filter.status" id="statusFilter">
+							<option value="any">Any</option>
+							<option value="applied">Applied</option>
+							<option value="interviewed">Interviewed</option>
+							<option value="offered">Offered</option>
+							<option value="rejected">Rejected</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="fromDate" class="mr-sm-1">From Date:</label>
 						<input class="form-control mr-sm-1" type="date" ng-model="filter.fromDate" id="fromDate"></input>
 					</div>
@@ -55,6 +65,15 @@
 								<div class="form-group">
 									<label for="dateInput">Date Applied:</label>
 									<input class="form-control" type="date" ng-model="job.date" id="dateInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="statusInput">Status:</label>
+									<select class="form-control" ng-model="job.status" id="statusInput">
+										<option value="applied">Applied</option>
+										<option value="interviewed">Interviewed</option>
+										<option value="offered">Offered</option>
+										<option value="rejected">Rejected</option>
+									</select>
 								</div>
 								<div class="form-group">
 									<label for="titleInput">Job Title:</label>
@@ -88,7 +107,8 @@
 				<thead>
 					<tr class="row">
 						<th class="col-md-1">&nbsp;</th>
-						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-2" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
+						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-1" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
+						<th id="statusCol" ng-click="sortBy('status')" class="sortable col-md-1" ng-class="getSortedClass('status')">Status <i class="fa" ng-class="getSortedIcon('status')" /></th>
 						<th id="titleCol" ng-click="sortBy('title')" class="sortable col-md-3" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
 						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-md-2" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
 						<th id="locationCol" ng-click="sortBy('location')" class="sortable col-md-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
@@ -97,12 +117,13 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="job in joblist | filter: filter.searchTerm | filter: dateFilter | orderBy: sort.orderBy : sort.reverse" class="row">
+					<tr ng-repeat="job in joblist | filter: statusFilter | filter: filter.searchTerm | filter: dateFilter | orderBy: sort.orderBy : sort.reverse" class="row">
 						<td class="col-md-1 text-center ">
 							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
 							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
 						</td>
-						<td class="col-md-2 pt-3">{{ job.date | date: 'shortDate' }}</td>
+						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
+						<td class="col-md-1 pt-3"><span class="btn btn-sm" ng-class="getStatusClass(job.status)">{{ job.status | capitalize }}</span></td>
 						<td class="col-md-3 pt-3">{{ job.title }}</td>
 						<td class="col-md-2 pt-3">{{ job.company }}</td>
 						<td class="col-md-2 pt-3">{{ job.location }}</td>

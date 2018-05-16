@@ -8,10 +8,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		var editedJob = {};
 		
 		$scope.init = function() {
-			$scope.job.date = new Date();
-			$scope.job.date.setHours(0,0,0,0);
+			$scope.job = Job.job();
+			
 			$scope.sort.orderBy = Sort.orderBy;
 			$scope.sort.reverse = Sort.reverse;
+			
+			$scope.filter.status = "any";
 			
 			_getJobList();
 		};
@@ -21,8 +23,10 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		var _normalizeDates = function() {
-			for (var i = 0; i < $scope.joblist.length; i++)
+			for (var i = 0; i < $scope.joblist.length; i++) {
 				$scope.joblist[i].date = new Date($scope.joblist[i].date);
+				$scope.joblist[i].date.setHours(0,0,0,0);
+			}
 		}
 		
 		var _getJobList = function() {
@@ -87,17 +91,11 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		var _clearForm = function() {
-			$scope.job = {};
-			$scope.job.date = new Date();
+			$scope.job = Job.job();
 		};
 		
 		var _revertForm = function() {
-			$scope.job._id = editedJob._id;
-			$scope.job.date = editedJob.date;
-			$scope.job.title = editedJob.title;
-			$scope.job.company = editedJob.company;
-			$scope.job.location = editedJob.location;
-			$scope.job.via = editedJob.via;
+			$scope.job = Job.job(editedJob);
 		};
 		
 		$scope.sortBy = function(colname) {
@@ -125,6 +123,21 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				return "fa-sort";
 		};
 		
+		$scope.getStatusClass = function(status) {
+			switch (status) {
+				case "applied":
+					return "btn-outline-info";
+				case "interviewed":
+					return "btn-outline-primary";
+				case "offered":
+					return "btn-outline-success";
+				case "rejected":
+					return "btn-outline-danger";
+				default:
+					return "btn-outline-secondary";
+			}
+		};
+		
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
 				_clearForm();
@@ -134,10 +147,15 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.dateFilter = function(job) {
 			var jobDate = new Date(job.date);
 			return (!$scope.filter.fromDate || jobDate >= new Date($scope.filter.fromDate)) && (!$scope.filter.toDate || jobDate <= new Date($scope.filter.toDate))
-		}
+		};
+		
+		$scope.statusFilter = function(job) {
+			return $scope.filter.status === "any" || job.status === $scope.filter.status;
+		};	
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
+			$scope.filter.status = "any";
 			Sort.clear();
 		};
 	}

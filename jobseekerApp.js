@@ -6,15 +6,22 @@ app.factory('Job', ['$http', function($http) {
 	var urlBase = "http://127.0.0.1:8000/";
 	
 	Job.job = function(job) {
-		return {
-			_id : job._id,
-			date :  job.date,
-			title : job.title,
-			company : job.company,
-			location : job.location,
-			via : job.via
-		};
-	}
+		if (job)
+			return {
+				_id : job._id,
+				date :  job.date,
+				title : job.title,
+				status : job.status,
+				company : job.company,
+				location : job.location,
+				via : job.via
+			};
+		else
+			return {
+				date : new Date(),
+				status : "applied"
+			};
+	};
 	
 	Job.getAllJobs = function() {
 		return $http({
@@ -81,3 +88,10 @@ app.factory('Sort', function() {
 	
 	return Sort;
 });
+
+app.filter('capitalize', function() {
+	return function(input) {
+		return input.charAt(0).toUpperCase() + input.slice(1);
+	}
+});
+
