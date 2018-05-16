@@ -121,6 +121,21 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				return "fa-sort";
 		};
 		
+		$scope.getStatusClass = function(status) {
+			switch (status) {
+				case "applied":
+					return "btn-outline-info";
+				case "interviewed":
+					return "btn-outline-primary";
+				case "offered":
+					return "btn-outline-success";
+				case "rejected":
+					return "btn-outline-danger";
+				default:
+					return "btn-outline-secondary";
+			}
+		}
+		
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
 				_clearForm();
