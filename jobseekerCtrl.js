@@ -9,10 +9,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		
 		$scope.init = function() {
 			$scope.job = Job.job();
-			
-			$scope.sort.orderBy = Sort.orderBy;
-			$scope.sort.reverse = Sort.reverse;
-			
+			$scope.sort = Sort.sort();
 			
 			$scope.filter.status = {};
 			$scope.filter.status['applied'] = true;
@@ -103,8 +100,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		
 		$scope.sortBy = function(colname) {
 			Sort.by(colname);
-			$scope.sort.orderBy = Sort.getOrder();
-			$scope.sort.reverse = Sort.getReverse();
+			$scope.sort = Sort.sort();
 		};
 		
 		$scope.getSortedClass = function(colname) {

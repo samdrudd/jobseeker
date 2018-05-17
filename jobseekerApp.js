@@ -60,6 +60,13 @@ app.factory('Sort', function() {
 	var _orderBy = "";
 	var _reverse = false;
 	
+	Sort.sort = function() {
+		return {
+			orderBy : _orderBy,
+			reverse : _reverse
+		};
+	};
+	
 	Sort.isSortedBy = function(colname) {
 		return _orderBy === colname;
 	};
