@@ -34,22 +34,18 @@
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">
 					<form class="form-inline my-2">
 						<div class="form-group">
-							<label for"statusFilter" class="mr-sm-1">Status:</label>
-							<select class="form-control mr-sm-1" ng-model="filter.status" id="statusFilter">
-								<option value="any">Any</option>
-								<option value="applied">Applied</option>
-								<option value="interviewed">Interviewed</option>
-								<option value="offered">Offered</option>
-								<option value="rejected">Rejected</option>
-							</select>
+							<label for="fromDate" class="mr-sm-2">From</label>
+							<input class="form-control" type="date" ng-model="filter.fromDate" id="fromDate"></input>
+						</div>
+						<div class="form-group mr-sm-3">
+							<label for="toDate" class="mx-sm-2">to</label>
+							<input class="form-control" type="date" ng-model="filter.toDate" id="toDate"></input>
 						</div>
 						<div class="form-group">
-							<label for="fromDate" class="mr-sm-1">From Date:</label>
-							<input class="form-control mr-sm-1" type="date" ng-model="filter.fromDate" id="fromDate"></input>
-						</div>
-						<div class="form-group">
-							<label for="toDate" class="mr-sm-1">To Date:</label>
-							<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
+							<button class="btn btn-sm mr-sm-1" ng-class="(filter.status.applied) ? 'btn-info' : 'btn-outline-secondary'" ng-click="applyStatusFilter('applied')">Applied</button>
+							<button class="btn btn-sm mr-sm-1" ng-class="(filter.status.interviewed) ? 'btn-primary' : 'btn-outline-secondary'" ng-click="applyStatusFilter('interviewed')">Interviewed</button>
+							<button class="btn btn-sm mr-sm-1" ng-class="(filter.status.offered) ? 'btn-success' : 'btn-outline-secondary'" ng-click="applyStatusFilter('offered')">Offered</button>
+							<button class="btn btn-sm mr-sm-1" ng-class="(filter.status.rejected) ? 'btn-danger' : 'btn-outline-secondary'" ng-click="applyStatusFilter('rejected')">Rejected</button>
 						</div>
 					</form>
 				</nav>

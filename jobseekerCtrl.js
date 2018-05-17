@@ -13,7 +13,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.sort.orderBy = Sort.orderBy;
 			$scope.sort.reverse = Sort.reverse;
 			
-			$scope.filter.status = "any";
+			
+			$scope.filter.status = {};
+			$scope.filter.status['applied'] = true;
+			$scope.filter.status['interviewed'] = true;
+			$scope.filter.status['offered'] = true;
+			$scope.filter.status['rejected'] = true;
 			
 			_getJobList();
 		};
@@ -148,7 +153,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		};
 		
 		$scope.statusFilter = function(job) {
-			return $scope.filter.status === "any" || job.status === $scope.filter.status;
+			return $scope.filter.status[job.status];
 		};
 		
 		$scope.changeJobStatus = function(job, status) {
@@ -158,9 +163,17 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			_editJob(change);
 		};
 		
+		$scope.applyStatusFilter = function(status) {
+			$scope.filter.status[status] = !$scope.filter.status[status];
+		}
+		
 		$scope.resetFilters = function() {
 			$scope.filter = {};
-			$scope.filter.status = "any";
+			$scope.filter.status = {};
+			$scope.filter.status.applied = true;
+			$scope.filter.status.interviewed = true;
+			$scope.filter.status.offered = true;
+			$scope.filter.status.rejected = true;
 			Sort.clear();
 		};
 	}
