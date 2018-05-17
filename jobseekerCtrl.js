@@ -156,7 +156,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			change.status = status;
 			
 			_editJob(change);
-		}
+		};
 		
 		$scope.resetFilters = function() {
 			$scope.filter = {};

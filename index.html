@@ -23,32 +23,37 @@
 					</li>
 				</ul>
 				
-				<form class="form-inline my-2">
-					<div class="form-group">
-						<label for"statusFilter" class="mr-sm-1">Status:</label>
-						<select class="form-control mr-sm-1" ng-model="filter.status" id="statusFilter">
-							<option value="any">Any</option>
-							<option value="applied">Applied</option>
-							<option value="interviewed">Interviewed</option>
-							<option value="offered">Offered</option>
-							<option value="rejected">Rejected</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="fromDate" class="mr-sm-1">From Date:</label>
-						<input class="form-control mr-sm-1" type="date" ng-model="filter.fromDate" id="fromDate"></input>
-					</div>
-					<div class="form-group">
-						<label for="toDate" class="mr-sm-1">To Date:</label>
-						<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
-					</div>
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
-					<input type="reset" value="Reset Filters" role="button" class="btn" ng-click="resetFilters()"></input>
-				</form>
+				<input class="form-control mx-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
 				
+				<button class="btn navbar-btn btn-info dropdown-toggle mr-sm-2" data-toggle="collapse" data-target="#filters">Filters</button>
 				
+				<input type="reset" value="Reset Filters" role="button" class="btn" ng-click="resetFilters()"></input>
 			</nav>
 		
+			<div class="collapse" id="filters">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<form class="form-inline my-2">
+						<div class="form-group">
+							<label for"statusFilter" class="mr-sm-1">Status:</label>
+							<select class="form-control mr-sm-1" ng-model="filter.status" id="statusFilter">
+								<option value="any">Any</option>
+								<option value="applied">Applied</option>
+								<option value="interviewed">Interviewed</option>
+								<option value="offered">Offered</option>
+								<option value="rejected">Rejected</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="fromDate" class="mr-sm-1">From Date:</label>
+							<input class="form-control mr-sm-1" type="date" ng-model="filter.fromDate" id="fromDate"></input>
+						</div>
+						<div class="form-group">
+							<label for="toDate" class="mr-sm-1">To Date:</label>
+							<input class="form-control mr-sm-1" type="date" ng-model="filter.toDate" id="toDate"></input>
+						</div>
+					</form>
+				</nav>
+			</div>
 
 			<div id="addJobModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
