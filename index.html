@@ -104,28 +104,28 @@
 				</div>
 			</div>
 
-			<table class="table">
+			<div class="container-fluid">
+			<table class="table table-sm">
 				<thead>
 					<tr class="row">
-						<th class="col-md-1">&nbsp;</th>
-						<th id="dateCol" ng-click="sortBy('date')" class="sortable col-md-1" ng-class="getSortedClass('date')">Date Applied <i class="fa" ng-class="getSortedIcon('date')" /></th>
-						<th id="statusCol" ng-click="sortBy('status')" class="sortable col-md-1" ng-class="getSortedClass('status')">Status <i class="fa" ng-class="getSortedIcon('status')" /></th>
-						<th id="titleCol" ng-click="sortBy('title')" class="sortable col-md-3" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
-						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-md-2" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
-						<th id="locationCol" ng-click="sortBy('location')" class="sortable col-md-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
-						<th id="viaCol" ng-click="sortBy('via')" class="sortable col-md-2" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>		
+						<th id="actionCol" class="col-1"></th>
+						<th id="statusCol" ng-click="sortBy('status')" class="sortable text-center col-1" ng-class="getSortedClass('status')">Status <i class="fa" ng-class="getSortedIcon('status')" /></th>
+						<th id="dateCol" ng-click="sortBy('date')" class="sortable text-center col-1" ng-class="getSortedClass('date')">Date <i class="fa" ng-class="getSortedIcon('date')" /></th>
+						<th id="titleCol" ng-click="sortBy('title')" class="sortable col-4" ng-class="getSortedClass('title')">Job Title <i class="fa" ng-class="getSortedIcon('title')" /></th>
+						<th id="companyCol" ng-click="sortBy('company')" class="sortable col-2" ng-class="getSortedClass('company')">Company <i class="fa" ng-class="getSortedIcon('company')" /></th>
+						<th id="locationCol" ng-click="sortBy('location')" class="sortable col-2" ng-class="getSortedClass('location')">Location <i class="fa" ng-class="getSortedIcon('location')" /></th>
+						<th id="viaCol" ng-click="sortBy('via')" class="sortable col-1" ng-class="getSortedClass('via')">Applied Via <i class="fa" ng-class="getSortedIcon('via')"/></th>		
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr ng-repeat="job in joblist | filter: statusFilter | filter: filter.searchTerm | filter: dateFilter | orderBy: sort.orderBy : sort.reverse" class="row">
-						<td class="col-md-1 text-center ">
-							<button type="button" role="button" class="btn btn-warning btn-sm" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal">EDIT</button>
-							<button type="button" class="btn btn-danger btn-sm" ng-click="deleteJob(job)">DEL</button>
+						<td class="text-center col-1 pt-2">
+							<i class="fa fa-pencil-square-o align-middle text-secondary" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal"></i>
+							<i class="fa fa-trash-o mr-md-2 text-danger" ng-click="deleteJob(job)"></i>
 						</td>
-						<td class="col-md-1 pt-3">{{ job.date | date: 'shortDate' }}</td>
-						<td class="col-md-1 pt-3">
-							<span class="btn btn-sm dropdown-toggle" ng-class="getStatusClass(job.status)" data-toggle="dropdown">{{ job.status | capitalize }}</span>
+						<td class="col-1">
+							<span class="btn btn-sm dropdown-toggle container-fluid" ng-class="getStatusClass(job.status)" data-toggle="dropdown">{{ job.status | capitalize }}</span>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" ng-class="(job.status === 'applied') ? 'active' : ''" ng-click="changeJobStatus(job, 'applied')" href="#">Applied</a>
 								<a class="dropdown-item" ng-class="(job.status === 'interviewed') ? 'active' : ''" ng-click="changeJobStatus(job, 'interviewed')" href="#">Interviewed</a>
@@ -133,11 +133,11 @@
 								<a class="dropdown-item" ng-class="(job.status === 'rejected') ? 'active' : ''" ng-click="changeJobStatus(job, 'rejected')" href="#">Rejected</a>
 							</div>
 						</td>
-						<td class="col-md-3 pt-3">{{ job.title }}</td>
-						<td class="col-md-2 pt-3">{{ job.company }}</td>
-						<td class="col-md-2 pt-3">{{ job.location }}</td>
-						<td class="col-md-2 pt-3">{{ job.via }}</td>
-						
+						<td class="col-1 text-center pt-2">{{ job.date | date: 'shortDate' }}</td>
+						<td class="col-4 pt-2">{{ job.title }}</td>
+						<td class="col-2 pt-2">{{ job.company }}</td>
+						<td class="col-2 pt-2">{{ job.location }}</td>
+						<td class="col-1 pt-2">{{ job.via }}</td>
 					</tr>
 				</tbody>
 			</table>
