@@ -1,5 +1,5 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
-	function($scope, $timeout, $filter, Job, Sort) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'Filter',
+	function($scope, $timeout, $filter, Job, Sort, Filter) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
@@ -10,12 +10,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.init = function() {
 			$scope.job = Job.job();
 			$scope.sort = Sort.sort();
-			
-			$scope.filter.status = {};
-			$scope.filter.status['applied'] = true;
-			$scope.filter.status['interviewed'] = true;
-			$scope.filter.status['offered'] = true;
-			$scope.filter.status['rejected'] = true;
+			$scope.filter = Filter.filter();
 			
 			_getJobList();
 		};
@@ -164,13 +159,10 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		}
 		
 		$scope.resetFilters = function() {
-			$scope.filter = {};
-			$scope.filter.status = {};
-			$scope.filter.status.applied = true;
-			$scope.filter.status.interviewed = true;
-			$scope.filter.status.offered = true;
-			$scope.filter.status.rejected = true;
 			Sort.clear();
+			$scope.sort = Sort.sort();
+			
+			$scope.filter = Filter.filter();
 		};
 	}
 ]);
