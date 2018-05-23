@@ -1,9 +1,10 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
-	function($scope, $timeout, $filter, Job, Sort) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', '$cookies', 'Job', 'Sort', 'User',
+	function($scope, $timeout, $filter, $cookies, Job, Sort, User) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
 		$scope.joblist = [];
+		$scope.user = {};
 		
 		var editedJob = {};
 		
@@ -17,7 +18,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.filter.status['offered'] = true;
 			$scope.filter.status['rejected'] = true;
 			
-			_getJobList();
+			// If logged in already, get jobs otherwise login
+			if ($cookies.jobseeker)			
+				_getJobList();
+			else
+				$ ('#loginModal').modal();
+			
 		};
 		
 		$scope.submitForm = function() {
@@ -30,6 +36,15 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				$scope.joblist[i].date.setHours(0,0,0,0);
 			}
 		}
+		
+		// If login is successful, get jobs
+		$scope.login = function() {
+			User.login($scope.user.username, $scope.user.password)
+				.then(
+					(response) => { _getJobList(); },
+					(response) => { console.log(response.statusText); }
+				);
+		};
 		
 		var _getJobList = function() {
 			Job.getAllJobs()

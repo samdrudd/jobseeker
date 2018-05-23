@@ -1,4 +1,4 @@
-var app = angular.module("jobseeker", []);
+var app = angular.module('jobseeker', ['ngCookies']);
 
 app.factory('Job', ['$http', function($http) {
 	
@@ -95,6 +95,21 @@ app.factory('Sort', function() {
 	
 	return Sort;
 });
+
+app.factory('User', ['$http', function($http) {
+	var User = {};
+	var urlBase = "http://127.0.0.1:8000/";
+	
+	User.login = function(username, password) {
+		return $http({
+				url: urlBase + "login",
+				method: "POST",
+				data: $.param({username : username, password : password}),
+				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
+	};		
+	
+	return User;
+}]);
 
 app.filter('capitalize', function() {
 	return function(input) {
