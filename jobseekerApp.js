@@ -115,6 +115,35 @@ app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 	return User;
 }]);
 
+app.factory('Filter', function() {
+	var Filter = {};
+	
+	var _status = {
+		applied : true,
+		interviewed : true,
+		offered : true,
+		rejected : true
+	};
+	
+	var _fromDate = "";
+	var _toDate = "";
+	
+	Filter.filter = function() {
+		return {
+			status : {
+				applied : _status.applied,
+				interviewed : _status.interviewed,
+				offered : _status.offered,
+				rejected : _status.rejected
+			},
+			fromDate : _fromDate,
+			toDate : _toDate
+		};
+	}
+	
+	return Filter;
+});
+
 app.filter('capitalize', function() {
 	return function(input) {
 		return input.charAt(0).toUpperCase() + input.slice(1);
