@@ -96,7 +96,7 @@ app.factory('Sort', function() {
 	return Sort;
 });
 
-app.factory('User', ['$http', function($http) {
+app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 	var User = {};
 	var urlBase = "http://127.0.0.1:8000/";
 	
@@ -106,7 +106,11 @@ app.factory('User', ['$http', function($http) {
 				method: "POST",
 				data: $.param({username : username, password : password}),
 				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
-	};		
+	};
+	
+	User.isLoggedIn = function() {
+		return ($cookies.jobseeker && $cookies.jobseeker.id);
+	};
 	
 	return User;
 }]);

@@ -1,5 +1,5 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', '$cookies', 'Job', 'Sort', 'User',
-	function($scope, $timeout, $filter, $cookies, Job, Sort, User) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'User',
+	function($scope, $timeout, $filter, Job, Sort, User) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
@@ -19,7 +19,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', '$cookies', 'J
 			$scope.filter.status['rejected'] = true;
 			
 			// If logged in already, get jobs otherwise login
-			if ($cookies.jobseeker)			
+			if (User.isLoggedIn())			
 				_getJobList();
 			else
 				$ ('#loginModal').modal();
