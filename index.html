@@ -107,13 +107,13 @@
 				</div>
 			</div>
 			
-			<div id="loginModal" class="modal" role="dialog">
+			<div id="loginModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<form class="form-vertical">
 							<div class="modal-body">
-								<div class="alert alert-danger" ng-show="error">
-									{{ error }}
+								<div class="alert" ng-show="notify.loginModal" ng-class="notify.loginModal.type">
+									{{ notify.loginModal.message }}
 								</div>
 								<div class="form-group">
 									<label for="usernameInput">Username</label>
@@ -148,6 +148,9 @@
 				</thead>
 
 				<tbody>
+					<div class="alert" ng-show="notify.table" ng-class="notify.table.type">
+						{{ notify.table.message }}
+					</div>
 					<tr ng-repeat="job in joblist | filter: statusFilter | filter: filter.searchTerm | filter: dateFilter | orderBy: sort.orderBy : sort.reverse" class="row">
 						<td class="text-center col-1 pt-2">
 							<i class="fa fa-pencil-square-o align-middle text-secondary" ng-click="openEditModal(job)" data-toggle="modal" data-target="#addJobModal"></i>

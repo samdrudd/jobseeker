@@ -1,11 +1,11 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'Filter', 'User',
-	function($scope, $timeout, $filter, Job, Sort, Filter, User) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'Filter', 'User', 'Notify',
+	function($scope, $timeout, $filter, Job, Sort, Filter, User, Notify) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
 		$scope.joblist = [];
 		$scope.user = {};
-		$scope.error = "";
+		$scope.notify = {};
 		
 		var editedJob = {};
 		
@@ -13,13 +13,15 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.job = Job.job();
 			$scope.sort = Sort.sort();
 			$scope.filter = Filter.filter();
-			
+						
 			// If logged in already, get jobs otherwise login
 			if (User.isLoggedIn())			
 				_getJobList();
 			else
 				$ ('#loginModal').modal();
-			
+						
+			if (!$scope.joblist.length) 
+				$scope.notify.table = Notify.set('table', 'info', G.MSG.INFO_NO_JOBS);
 		};
 		
 		$scope.submitForm = function() {
@@ -43,7 +45,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 					},
 					(response) => { 
 						if (response.status === 403)
-							$scope.error = "Username and / or password is incorrect.";
+							$scope.notify.loginModal = Notify.set('loginModal', 'error', G.MSG.ERR_USER_PASS_INVALID);
 					}
 				);
 		};
@@ -52,18 +54,20 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			User.create($scope.user.username, $scope.user.password)
 			.then(
 				(response) => {
-					console.log(response);
+					$scope.notify.loginModal = Notify.clear('loginModal');
+					$('#loginModal').modal('hide');
 				},
 				(response) => {
 					switch (response.data.error) {
 						case 10000:
-							$scope.error = "Username and password are both required.";
+							$scope.notify.loginModal = Notify.set('loginModal', 'error', G.MSG.ERR_USER_PASS_REQUIRED);
 							return;
 						case 11000:
-							$scope.error = "Username already exists.";
+							$scope.notify.loginModal = Notify.set('loginModal', 'error', G.MSG.ERR_USERNAME_EXISTS);
 							return;
 						default:
-							$scope.error = "An error occurred.";
+							$scope.notify.loginModal = Notify.set('loginModal', 'error', G.MSG.ERR_DEFAULT);
+							return;
 					};
 				}
 			);
@@ -72,6 +76,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.logout = function() {
 			if (confirm("Are you sure you want to logout?")) {
 				$scope.joblist = [];
+				$scope.notify = Notify.clearAll();
 				User.logout();
 				$('#loginModal').modal('show');
 			}
