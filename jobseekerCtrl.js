@@ -69,6 +69,14 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			);
 		};
 		
+		$scope.logout = function() {
+			if (confirm("Are you sure you want to logout?")) {
+				$scope.joblist = [];
+				User.logout();
+				$('#loginModal').modal('show');
+			}
+		};
+		
 		var _getJobList = function() {
 			Job.getAllJobs()
 				.then(
@@ -178,6 +186,13 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
 				_clearForm();
+			});
+		});
+		
+		$("#loginModal").on("hide.bs.modal", function(e) {
+			$timeout(function () {
+				$scope.user.username = "";
+				$scope.user.password = "";
 			});
 		});
 		

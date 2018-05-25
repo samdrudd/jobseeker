@@ -120,8 +120,12 @@ app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 		});
 	};
 	
+	User.logout = function() {
+		$cookies.remove('jobseeker');
+	};
+	
 	User.isLoggedIn = function() {
-		return ($cookies.jobseeker && $cookies.jobseeker.id);
+		return $cookies.get('jobseeker');
 	};
 		
 	return User;

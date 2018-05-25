@@ -24,11 +24,13 @@
 					</li>
 				</ul>
 				
-				<input class="form-control mx-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
+				<input class="form-control ml-sm-5 mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
 				
 				<button class="btn navbar-btn btn-info dropdown-toggle mr-sm-2" data-toggle="collapse" data-target="#filters">Filters</button>
 				
-				<input type="reset" value="Reset Filters" role="button" class="btn" ng-click="resetFilters()"></input>
+				<input type="reset" value="Reset Filters" role="button" class="btn mr-sm-5" ng-click="resetFilters()"></input>
+				
+				<input type="button" value="Logout" role="button" class="btn btn-secondary" ng-click="logout()"></input>
 			</nav>
 		
 			<div class="collapse" id="filters">
@@ -105,7 +107,7 @@
 				</div>
 			</div>
 			
-			<div id="loginModal" class="modal fade" role="dialog">
+			<div id="loginModal" class="modal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<form class="form-vertical">
