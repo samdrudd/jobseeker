@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="style.css">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
 		<script src="https://use.fontawesome.com/f3009b4d7d.js"></script>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -23,11 +24,13 @@
 					</li>
 				</ul>
 				
-				<input class="form-control mx-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
+				<input class="form-control ml-sm-5 mr-sm-2" type="search" placeholder="Search" ng-model="filter.searchTerm">
 				
 				<button class="btn navbar-btn btn-info dropdown-toggle mr-sm-2" data-toggle="collapse" data-target="#filters">Filters</button>
 				
-				<input type="reset" value="Reset Filters" role="button" class="btn" ng-click="resetFilters()"></input>
+				<input type="reset" value="Reset Filters" role="button" class="btn mr-sm-5" ng-click="resetFilters()"></input>
+				
+				<input type="button" value="Logout" role="button" class="btn btn-secondary" ng-click="logout()"></input>
 			</nav>
 		
 			<div class="collapse" id="filters">
@@ -99,6 +102,32 @@
 								<input type="submit" value="Submit" ng-click="submitForm()" class="btn btn-primary" data-dismiss="modal"></input>
 							</div>
 
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<div id="loginModal" class="modal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form class="form-vertical">
+							<div class="modal-body">
+								<div class="alert alert-danger" ng-show="error">
+									{{ error }}
+								</div>
+								<div class="form-group">
+									<label for="usernameInput">Username</label>
+									<input class="form-control" type="text" ng-model="user.username" id="usernameInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="passwordInput">Password</label>
+									<input class="form-control" type="password" ng-model="user.password" id="passwordInput"></input>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<input type="button" value="Create Account" ng-click="create()" class="btn btn-secondary"></input>
+								<input type="submit" value="Login" ng-click="login()" class="btn btn-primary"></input>
+							</div>
 						</form>
 					</div>
 				</div>

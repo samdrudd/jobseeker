@@ -1,9 +1,11 @@
-app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'Filter',
-	function($scope, $timeout, $filter, Job, Sort, Filter) {
+app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort', 'Filter', 'User',
+	function($scope, $timeout, $filter, Job, Sort, Filter, User) {
 		$scope.job = {};
 		$scope.sort = {};
 		$scope.filter = {};
 		$scope.joblist = [];
+		$scope.user = {};
+		$scope.error = "";
 		
 		var editedJob = {};
 		
@@ -12,7 +14,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.sort = Sort.sort();
 			$scope.filter = Filter.filter();
 			
-			_getJobList();
+			// If logged in already, get jobs otherwise login
+			if (User.isLoggedIn())			
+				_getJobList();
+			else
+				$ ('#loginModal').modal();
+			
 		};
 		
 		$scope.submitForm = function() {
@@ -25,6 +32,50 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				$scope.joblist[i].date.setHours(0,0,0,0);
 			}
 		}
+		
+		// If login is successful, get jobs
+		$scope.login = function() {
+			User.login($scope.user.username, $scope.user.password)
+				.then(
+					(response) => { 
+						$ ('#loginModal').modal('hide');
+						_getJobList();
+					},
+					(response) => { 
+						if (response.status === 403)
+							$scope.error = "Username and / or password is incorrect.";
+					}
+				);
+		};
+		
+		$scope.create = function() {
+			User.create($scope.user.username, $scope.user.password)
+			.then(
+				(response) => {
+					console.log(response);
+				},
+				(response) => {
+					switch (response.data.error) {
+						case 10000:
+							$scope.error = "Username and password are both required.";
+							return;
+						case 11000:
+							$scope.error = "Username already exists.";
+							return;
+						default:
+							$scope.error = "An error occurred.";
+					};
+				}
+			);
+		};
+		
+		$scope.logout = function() {
+			if (confirm("Are you sure you want to logout?")) {
+				$scope.joblist = [];
+				User.logout();
+				$('#loginModal').modal('show');
+			}
+		};
 		
 		var _getJobList = function() {
 			Job.getAllJobs()
@@ -135,6 +186,13 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$("#addJobModal").on("hide.bs.modal", function (e) {
 			$timeout(function () {
 				_clearForm();
+			});
+		});
+		
+		$("#loginModal").on("hide.bs.modal", function(e) {
+			$timeout(function () {
+				$scope.user.username = "";
+				$scope.user.password = "";
 			});
 		});
 		
