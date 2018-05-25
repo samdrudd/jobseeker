@@ -1,3 +1,13 @@
+var G = {
+	MSG : {
+		INFO_NO_JOBS : 100,
+		ERR_DEFAULT : 400,
+		ERR_USER_PASS_INVALID : 401,
+		ERR_USER_PASS_REQUIRED : 402,
+		ERR_USERNAME_EXISTS : 403	
+	}
+};
+
 var app = angular.module('jobseeker', ['ngCookies']);
 
 app.factory('Job', ['$http', function($http) {
@@ -158,6 +168,55 @@ app.factory('Filter', function() {
 	}
 	
 	return Filter;
+});
+
+app.factory('Notify', function() {
+	var Notify = {};
+	
+	_messages = {};
+	_messages[G.MSG.INFO_NO_JOBS] = "No jobs yet. Add some with the 'Add Job' button above!";
+	_messages[G.MSG.ERR_DEFAULT] = "An error occurred.";
+	_messages[G.MSG.ERR_USER_PASS_INVALID] = "Username and / or password is incorrect.";
+	_messages[G.MSG.ERR_USER_PASS_REQUIRED] = "Username and password are both required.";
+	_messages[G.MSG.ERR_USERNAME_EXISTS] = "Username already exists.";
+	
+	_types = {};
+	_types['info'] = "alert-info";
+	_types['warning'] = "alert-warning";
+	_types['error'] = "alert-danger";
+	_types['success'] = "alert-success";
+	
+	_notices = {};
+	
+	Notify.set = function(target, type, code) {		
+		_notices[target] = {
+			type : _types[type],
+			message : _messages[code]
+		};
+		
+		return _notices[target];
+	};
+	
+	Notify.get = function(target) {
+		return _notices[target];
+	}
+	
+	Notify.clear = function(target) {
+		_notices[target] = {
+			type : '',
+			message : ''
+		};
+		
+		return _notices[target];
+	};
+	
+	Notify.clearAll = function() {
+		_notices = {};
+		
+		return _notices;
+	};
+	
+	return Notify;
 });
 
 app.filter('capitalize', function() {
