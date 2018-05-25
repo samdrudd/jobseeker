@@ -105,13 +105,15 @@ app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 				url: urlBase + "login",
 				method: "POST",
 				data: $.param({username : username, password : password}),
-				headers: { "Content-Type": "application/x-www-form-urlencoded"}});
+				headers: { "Content-Type": "application/x-www-form-urlencoded"},
+				withCredentials : true
+			});
 	};
 	
 	User.isLoggedIn = function() {
 		return ($cookies.jobseeker && $cookies.jobseeker.id);
 	};
-	
+		
 	return User;
 }]);
 
