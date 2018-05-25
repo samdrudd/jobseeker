@@ -5,6 +5,7 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.filter = {};
 		$scope.joblist = [];
 		$scope.user = {};
+		$scope.error = "";
 		
 		var editedJob = {};
 		
@@ -36,8 +37,14 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 		$scope.login = function() {
 			User.login($scope.user.username, $scope.user.password)
 				.then(
-					(response) => { _getJobList(); },
-					(response) => { console.log(response.statusText); }
+					(response) => { 
+						$ ('#loginModal').modal('hide');
+						_getJobList();
+					},
+					(response) => { 
+						if (response.status === 403)
+							$scope.error = "Username and / or password is incorrect.";
+					}
 				);
 		};
 		

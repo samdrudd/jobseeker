@@ -110,17 +110,20 @@
 					<div class="modal-content">
 						<form class="form-vertical">
 							<div class="modal-body">
-								<div class="form-group">
-									<label for="titleInput">Username</label>
-									<input class="form-control" type="text" ng-model="user.username" id="titleInput"></input>
+								<div class="alert alert-danger" ng-show="error">
+									{{ error }}
 								</div>
 								<div class="form-group">
-									<label for="companyInput">Password</label>
-									<input class="form-control" type="passwod" ng-model="user.password" id="companyInput"></input>
+									<label for="usernameInput">Username</label>
+									<input class="form-control" type="text" ng-model="user.username" id="usernameInput"></input>
+								</div>
+								<div class="form-group">
+									<label for="passwordInput">Password</label>
+									<input class="form-control" type="password" ng-model="user.password" id="passwordInput"></input>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input type="submit" value="Login" ng-click="login()" class="btn btn-primary" data-dismiss="modal"></input>
+								<input type="submit" value="Login" ng-click="login()" class="btn btn-primary"></input>
 							</div>
 						</form>
 					</div>
