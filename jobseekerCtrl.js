@@ -48,6 +48,27 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 				);
 		};
 		
+		$scope.create = function() {
+			User.create($scope.user.username, $scope.user.password)
+			.then(
+				(response) => {
+					console.log(response);
+				},
+				(response) => {
+					switch (response.data.error) {
+						case 10000:
+							$scope.error = "Username and password are both required.";
+							return;
+						case 11000:
+							$scope.error = "Username already exists.";
+							return;
+						default:
+							$scope.error = "An error occurred.";
+					};
+				}
+			);
+		};
+		
 		var _getJobList = function() {
 			Job.getAllJobs()
 				.then(

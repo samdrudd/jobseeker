@@ -110,6 +110,16 @@ app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 			});
 	};
 	
+	User.create = function(username, password) {
+		return $http({
+			url: urlBase + "users",
+			method: "POST",
+			data: $.param({username : username, password : password}),
+			headers: { "Content-Type" : "application/x-www-form-urlencoded"},
+			withCredentials : true
+		});
+	};
+	
 	User.isLoggedIn = function() {
 		return ($cookies.jobseeker && $cookies.jobseeker.id);
 	};
