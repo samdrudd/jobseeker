@@ -13,7 +13,7 @@ var app = angular.module('jobseeker', ['ngCookies']);
 app.factory('Job', ['$http', function($http) {
 	
 	var Job = {};
-	var urlBase = "http://127.0.0.1:8000/";
+	var urlBase = "https://murmuring-gorge-43022.herokuapp.com/";
 	
 	Job.job = function(job) {
 		if (job)
@@ -108,7 +108,7 @@ app.factory('Sort', function() {
 
 app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 	var User = {};
-	var urlBase = "http://127.0.0.1:8000/";
+	var urlBase = "https://murmuring-gorge-43022.herokuapp.com/";
 	
 	User.login = function(username, password) {
 		return $http({
