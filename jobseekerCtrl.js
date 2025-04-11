@@ -15,13 +15,12 @@ app.controller("jobseekerCtrl", ['$scope', '$timeout', '$filter', 'Job', 'Sort',
 			$scope.filter = Filter.filter();
 						
 			// If logged in already, get jobs otherwise login
-			if (User.isLoggedIn())			
+			/*if (User.isLoggedIn())			
 				_getJobList();
 			else
-				$ ('#loginModal').modal();
-						
-			if (!$scope.joblist.length) 
-				$scope.notify.table = Notify.set('table', 'info', G.MSG.INFO_NO_JOBS);
+				$ ('#loginModal').modal();*/
+
+			_getJobList();
 		};
 		
 		$scope.submitForm = function() {

@@ -13,7 +13,7 @@ var app = angular.module('jobseeker', ['ngCookies']);
 app.factory('Job', ['$http', function($http) {
 	
 	var Job = {};
-	var urlBase = "https://murmuring-gorge-43022.herokuapp.com/";
+	var urlBase = "https://jobseeker-api-sj5a.onrender.com/";
 	
 	Job.job = function(job) {
 		if (job)
@@ -108,7 +108,7 @@ app.factory('Sort', function() {
 
 app.factory('User', ['$http', '$cookies', function($http, $cookies) {
 	var User = {};
-	var urlBase = "https://murmuring-gorge-43022.herokuapp.com/";
+	var urlBase = "https://jobseeker-api-sj5a.onrender.com/";
 	
 	User.login = function(username, password) {
 		return $http({
@@ -202,10 +202,7 @@ app.factory('Notify', function() {
 	}
 	
 	Notify.clear = function(target) {
-		_notices[target] = {
-			type : '',
-			message : ''
-		};
+		_notices[target] = {};
 		
 		return _notices[target];
 	};
